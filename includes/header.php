@@ -1,15 +1,34 @@
 <?php
 session_start();
 if (!isset($includes) || $includes===true) include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
-
-$mysqli=new Database();
 ?>
 <!doctype html>
 <html>
 	<head>
-		<title><?=TITLE;?></title>
-		<link rel="stylesheet" href="/css/main.css">
+		<title><?php echo TITLE; if (strlen(trim($title))>0) echo " :: $title";?></title>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="/css/main.css" />
+		<link rel="stylesheet" href="/css/form.css" />
+		<link rel="stylesheet" href="/css/nav.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script src="/js/main.js"></script>
 	</head>
 
 	<body>
+		<div class="logo"></div>
+		<?php if ($_SESSION['user_id']>0) echo '<div class="logout"><a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a></div>';?>
 		<div class="container">
+			<div class="breadcrumbs">
+				<?php 
+			//	Add the "Home" breadcrumb if we are not on the home page...
+				if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php') echo '<div style="display:inline-block;"><a href="/index.php">Home</a></div>';
+
+			//	Adding breadcrumbs
+				if (is_array($bcA)) {
+					foreach ($bcA as $url=>$text) echo '<div style="display:inline-block;">&nbsp;&raquo;&nbsp;<a href="'.$url.'">'.stripslashes($text).'</a></div>';
+				}
+				if (strlen(trim($title))>0) echo '<div style="display:inline-block;" class="bold">&nbsp;&raquo;&nbsp;'.stripslashes($title).'</div>';
+				?>
+			</div>

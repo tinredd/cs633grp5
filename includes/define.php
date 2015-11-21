@@ -1,5 +1,5 @@
 <?php
-define('TITLE','JobHut');
+define('TITLE','Title Here');
 
 //	DB information
 define('DB_HOST','localhost');
