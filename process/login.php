@@ -2,7 +2,7 @@
 session_start();
 include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
 
-$sql="SELECT * FROM user WHERE employee_id=".$_POST['employeeID']." AND password=AES_ENCRYPT('".$_POST['password']."','".AES_KEY."')";
+$sql="SELECT * FROM user WHERE email_address='".$_POST['email_address']."' AND password=AES_ENCRYPT('".$_POST['password']."','".AES_KEY."')";
 $rs_row=$mysqli->query($sql);
 
 if ($rs_row->num_rows==0) {

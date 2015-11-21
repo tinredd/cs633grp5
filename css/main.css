@@ -57,6 +57,14 @@ div.filterbox>div select,div.filterbox>div input[type="text"] {
 	width: 90%;
 }
 
+div.tag {
+	border: 1px solid #AAA;
+	background-color: #DDD;
+	padding: 3px 7px;
+	width: auto;
+	display: inline-block;
+};
+
 div.logout {
 	text-align: right;
 	font-size: 0.8em;

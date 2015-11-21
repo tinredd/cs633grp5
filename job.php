@@ -44,7 +44,7 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 		$addA=array_diff($_POST['skill_id'],$skillset);
 
 		if (count($deleteA)>0) {
-			$sql="DELETE FROM job_skill WHERE job_id=$jobID AND skill_id IN (".implode(',',$deleteA).")";
+			$sql="DELETE FROM job_skill WHERE job_id=$job_id AND skill_id IN (".implode(',',$deleteA).")";
 			$result=$mysqli->query($sql);
 		}
 
@@ -304,7 +304,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 		<th><a href="javascript:checkAll('job_id')">Select</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_job_title">Job title:</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_degree">Degree:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_salary">Salary:</a></th>
+		<th><a href="javascript:void(0)" class="sort" id="sort_salary">Annual Salary:</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_office_name">Office:</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_skillset">Skill(s):</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_status">Status:</a></th>
@@ -328,7 +328,10 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 				</a>
 			</td>
 			<td><?=stripslashes($row['degree']);?></td>
-			<td><?=stripslashes($row['salary']);?></td>
+			<td><?php 
+			if ($row['salary']>0) echo '$'.number_format(stripslashes($row['salary']),2);
+			else echo '- -';
+			?></td>
 			<td><?=stripslashes($row['office_name']);?></td>
 			<td><?php 
 			if (strlen(trim($row['skillset']))==0) echo '<span class="inactive italic">(none)</span>';

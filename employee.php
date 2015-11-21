@@ -15,7 +15,7 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 
 	if (count($errorsA)>0) {
 		$eStr='action='.substr($_POST['action'],0,-1);
-		if ($_POST['action']=='modify2') $eStr.='&user_id='.$_POST['user_id'];
+		if ($_POST['action']=='modify2') $eStr.='&employee_id='.$_POST['employee_id'];
 		$eStr.='&e='.urlencode(base64_encode(serialize($errorsA)));
 	}
 	else $eStr='msg=updated';
@@ -40,7 +40,7 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 		foreach ($fieldsA as $key=>$value) $updatesA[]="$key=$value";
 
 		if ($_POST['action']=='add2') $sql="INSERT INTO user SET ".implode(',',$updatesA);
-		elseif ($_POST['action']=='modify2') $sql="UPDATE user SET ".implode(',',$updatesA)." WHERE user_id={$_POST['user_id']} LIMIT 1";
+		elseif ($_POST['action']=='modify2') $sql="UPDATE user SET ".implode(',',$updatesA)." WHERE employee_id={$_POST['employee_id']} LIMIT 1";
 		$result=$mysqli->query($sql);
 	}
 
@@ -60,8 +60,8 @@ if (in_array($_REQUEST['action'],array('add','modify'))) $bcA['/employee.php']='
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 
 if (in_array($_REQUEST['action'],array('add','modify'))) {
-	$user_id=($_REQUEST['user_id']>0)?$_REQUEST['user_id']:0;
-	$row=$mysqli->fetch_row("SELECT * FROM user WHERE user_id=$user_id");
+	$employee_id=($_REQUEST['employee_id']>0)?$_REQUEST['employee_id']:0;
+	$row=$mysqli->fetch_row("SELECT * FROM user WHERE employee_id=$employee_id");
 
 	$sql="SELECT * FROM office ORDER BY office_name";
 	$officesA=$mysqli->fetch_rows($sql);
@@ -73,7 +73,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 ?>
 <form name="account" action="" method="post">
 	<input name="action" value="<?=$_REQUEST['action'];?>2" type="hidden" />
-	<input name="user_id" value="<?=$user_id;?>" type="hidden" />
+	<input name="employee_id" value="<?=$employee_id;?>" type="hidden" />
 
 	<div class="form_row">
 		<div><span class="required">*</span> Employee ID:</div>
@@ -249,7 +249,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 
 <table>
 	<tr>
-		<th><a href="javascript:checkAll('user_id')">Select</a></th>
+		<th><a href="javascript:checkAll('employee_id')">Select</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_last_name">Last name:</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_first_name">First name:</a></th>
 		<th><a href="javascript:void(0)" class="sort" id="sort_employee_id">Employee ID:</a></th>
@@ -272,9 +272,9 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	while ($row=$rs_row->fetch_assoc()) {
 ?>
 		<tr>
-			<td class="center"><input name="user_id[]" type="checkbox" value="<?=$row['user_id'];?>" /></td>
+			<td class="center"><input name="employee_id[]" type="checkbox" value="<?=$row['employee_id'];?>" /></td>
 			<td>
-				<a href="?action=modify&amp;user_id=<?=$row['user_id'];?>">
+				<a href="?action=modify&amp;employee_id=<?=$row['employee_id'];?>">
 					<?=stripslashes($row['last_name']);?>
 				</a>
 			</td>

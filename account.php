@@ -103,8 +103,32 @@ Update field: ".$ufieldsA[$_POST['field']]."
 	header('Location: /account.php?t=3'.$eStr.$fStr); exit();
 
 } elseif ($_POST['action']=='addskill2' && $_POST['t']==4) {
+	$skillset=explode(',',$mysqli->fetch_value("SELECT GROUP_CONCAT(skill_id) FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}"));
 
-	header('Location: /account.php?t=3'.$eStr.$fStr); exit();
+	if (count($_POST['skill_id'])==0) {
+		$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}";
+		$result=$mysqli->query($sql);
+	} else {
+		$deleteA=$addA=array();
+
+		foreach ($skillset as $skill_id) {
+			if (!in_array($skill_id,$_POST['skill_id']) && $skill_id>0) $deleteA[]=$skill_id;
+		}
+		foreach ($_POST['skill_id'] as $skill_id) {
+			if (!in_array($skill_id,$skillset) && $skill_id>0) $addA[]=$skill_id;
+		}
+
+		if (count($deleteA)>0) {
+			$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']} AND skill_id IN (".implode(',',$deleteA).")";
+			$result=$mysqli->query($sql);
+		}
+
+		foreach ($addA as $skill_id) {
+			$sql="INSERT INTO employee_skill SET employee_id={$_SESSION['employee_id']}, skill_id=$skill_id";
+			$result=$mysqli->query($sql);
+		}
+	}
+	header('Location: /account.php?t=4'.$eStr.$fStr); exit();
 }
 
 if ($_REQUEST['t']>1) $tab=$_REQUEST['t'];
@@ -259,9 +283,51 @@ Your assistance is very much appreciated!';
 <?php
 //	Add Skills
 } elseif ($tab==4) {
+	$skillA=array();
+	$rs_rows=$mysqli->query("SELECT E.*,S.skill_name FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} ORDER BY skill_name");
+	while ($row=$rs_rows->fetch_assoc()) {
+		$skillA[$row['skill_id']]=$row['skill_name'];
+	}
 ?>
+<form name="account" action="" method="post">
+	<input name="action" value="addskill2" type="hidden" />
+	<input name="t" value="<?=$tab;?>" type="hidden" />
 
-[PLACEHOLDER] This is the page where the employee will add their skills...
+	<div class="form_row">
+		<div>Skill(s):</div>
+		<div>
+			<div>
+				<div id="allmyskill">
+					<div id="newskills"></div>
+					<div class="inactive italic" id="noskills">
+		<?php 
+		if (count($skillA)==0) {
+			echo '(no skills defined)</div>';
+		} else {
+			echo '</div>';
+			foreach ($skillA as $skill_id=>$skill_name) {
+				echo '<div style="margin-bottom:5px;">';
+				echo '<div class="tag" id="newskilltag_'.$skill_id.'">';
+				echo stripslashes($skill_name);
+				echo '</div>';
+				echo '<a href="javascript:void(0)" id="newskilllink_'.$skill_id.'" class="button removeskill" style="margin:-10px 0 0 5px;">&times;</a>';
+				echo '<input name="skill_id[]" type="hidden" value="'.$skill_id.'" id="myskill_'.$skill_id.'" class="myskill" />';
+				echo '</div>';
+			}
+		}
+		?>		</div>
+				<div>
+					<a href="javascript:void(0)" class="button" id="myskill">Add New Skill</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form_row">
+		<div>&nbsp;</div>
+		<div><input name="submt" type="submit" value="Save Skills" /></div>
+	</div>
+</form>
 <?
 //	Main page
 } else {

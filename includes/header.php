@@ -18,7 +18,7 @@ if (!isset($includes) || $includes===true) include($_SERVER['DOCUMENT_ROOT'].'/i
 
 	<body>
 		<div class="logo"></div>
-		<?php if ($_SESSION['user_id']>0) echo '<div class="logout"><a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a></div>';?>
+		<?php if ($_SESSION['employee_id']>0) echo '<div class="logout"><a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a></div>';?>
 		<div class="container">
 			<div class="breadcrumbs">
 				<?php 
