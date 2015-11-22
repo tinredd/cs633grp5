@@ -315,7 +315,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	if ($rs_row->num_rows==0) {
 		echo '
 			<tr>
-				<td class="inactive italic" colspan=7>(none)</td>
+				<td class="inactive italic" colspan=8>(none)</td>
 			</tr>';
 	}
 	while ($row=$rs_row->fetch_assoc()) {
@@ -338,7 +338,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 			else echo stripslashes($row['skillset']);
 			?></td>
 			<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
-			<td><a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match</a></td>
+			<td><a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match Employees</a></td>
 		</tr>
 <?php
 	}

@@ -1,8 +1,58 @@
 table {
-	width: 100%;
-	font-size: 0.9em;
+	font-size: 0.8em;
+	border-collapse: collapse;
+	border: 0px solid #000;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+table tr:first-child th:first-child, table tr:first-child td:first-child {
+	border-radius: 5px 0 0 0;
+}
+
+table tr:first-child th:last-child, table tr:first-child td:last-child {
+	border-radius: 0 5px 0 0;
+}
+
+table .button {
+	margin-top: 2px;
 }
 
 tr th {
+	border-bottom: 2px solid #30829c;
+	background-color: #4fabc9;
+	padding: 7px;
+	color: #FFF;
+	text-align: center;
+}
 
+tr th:not(:last-child) {
+	border-right: 1px solid #30829c;
+}
+
+th a {
+	text-decoration: none;
+	text-shadow: 2px 2px #30829c;
+	color: #FFF;
+}
+
+tr td {
+	padding: 5px 7px;
+	border-bottom: 1px solid #AAA;
+}
+
+tr td:not(:last-child) {
+	border-right: 1px solid #AAA;
+}
+
+tr:not(:first-child) td {
+	border-top: 1px solid #FFF;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #ebf6f9;
+}
+
+tbody tr:nth-child(odd) {
+	background-color: #d8edf3;
 }

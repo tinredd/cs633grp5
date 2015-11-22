@@ -1,6 +1,13 @@
 /*	Breadcrumbs	*/
-div.breadcrumbs {
+div.topbar {
 	margin-bottom: 20px;
+	font-size: 0.8em;
+	width: 98%;
+}
+
+div.breadcrumbs {
+	display: inline-block;
+	width: 49%;
 }
 
 /*	Tabs navigation	*/
@@ -49,9 +56,10 @@ ul.tabs>li>a:not(.active) {
 
 /*	Logout	*/
 div.logout {
+	width: 49%;
 	text-align: right;
-	font-size: 0.8em;
-	width: 100%;
+	display: inline-block;
+	float: right;
 }
 
 /*	Logo	*/

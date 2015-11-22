@@ -14,6 +14,7 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 		<link rel="stylesheet" href="/css/main.css" />
 		<link rel="stylesheet" href="/css/form.css" />
 		<link rel="stylesheet" href="/css/nav.css" />
+		<link rel="stylesheet" href="/css/table.css" />
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -22,6 +23,7 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 
 	<body>
 		<div class="logo"></div>
+		<div class="topbar">
 		<?php 
 			if ($_SESSION['employee_id']>0) {
 				echo '<div class="logout">
@@ -29,7 +31,6 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 				<a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a>
 				</div>';
 			}?>
-		<div class="container">
 			<div class="breadcrumbs">
 				<?php 
 			//	Add the "Home" breadcrumb if we are not on the home page...
@@ -42,3 +43,5 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 				if (strlen(trim($title))>0) echo '<div style="display:inline-block;" class="bold">&nbsp;&raquo;&nbsp;'.stripslashes($title).'</div>';
 				?>
 			</div>
+		</div>
+		<div class="container">

@@ -288,7 +288,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 <?php
 	if ($rs_row->num_rows==0) {
 		echo '<tr>
-			<td class="inactive italic" colspan=7>(none)</td>
+			<td class="inactive italic" colspan=11>(none)</td>
 			</tr>';
 	}
 
