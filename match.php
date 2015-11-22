@@ -8,11 +8,13 @@ if ($job_id==0) { header('Location: /job.php'); exit(); }
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 ?>
 <div>Algorithm...</div>
-<div>One point if the location matches and at least one skill matches</div>
-<div>One point for each skills that matches</div>
-<div>If there are no skills for the job, the point is awarded for employees with a matching location</div>
-<div>One point for each year seniority if either (the employee has one skill in common with the job) or (the job has no skills)
-<div>The employees will be shown in order of points</div>
+<ul>
+<li>One point if the location matches and at least one skill matches</li>
+<li>One point for each skills that matches</li>
+<li>If there are no skills for the job, the point is awarded for employees with a matching location</li>
+<li style="text-decoration:line-through;">One point for each year seniority if either (the employee has one skill in common with the job) or (the job has no skills)</li>
+<li>The employees will be shown in reverse order of points</li>
+</ul>
 
 <div>Ranking order:</div>
 <div><ol>
@@ -67,10 +69,10 @@ $rs_row=$mysqli->query($sql);
 while ($emp=$rs_row->fetch_assoc()) {
     $points=0;
 
-    $commonskillset=array_intersect(explode(',',$emp['skillset']),$job_skillA);
+    $commonskillset=array_intersect(explode(',',$emp['skills']),$job_skillA);
     $points+=count($commonskillset);
 
-    if ((count($job_skillA)==0 || count($commonskillset)>0) && $row['location']==$emp['location']) $points++;
+    if ((count($job_skillA)==0 || count($commonskillset)>0) && $row['office_id']==$emp['office_id']) $points++;
 
     $years=round((strtotime('today')-strtotime($emp['hire_date']))/(365*86400),1);
 
@@ -86,7 +88,7 @@ while ($emp=$rs_row->fetch_assoc()) {
     unset($empA[$emp['employee_id']]['password']);
 }
 
-array_multisort($pointsA,SORT_ASC,$yearsA,SORT_DESC,$empA);
+array_multisort($pointsA,SORT_DESC,$yearsA,SORT_DESC,$empA);
 ?>
 <div class="section_title">Job Details</div>
 <div class="form_row">
