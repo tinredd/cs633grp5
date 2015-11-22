@@ -18,6 +18,7 @@ $sql="SELECT J.*, J.status AS job_status,
     WHERE J.job_id=$job_id";
 $row=$mysqli->fetch_row($sql);
 
+
 ?>
 <div>Algorithm...</div>
 <ul>
