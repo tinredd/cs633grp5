@@ -57,7 +57,17 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 //	Redirect...
 	header('Location: /job.php?'.$eStr); exit();
 
-} elseif ($_POST['action']=='delete2') {
+
+} elseif (in_array($_POST['action'],array('activate2','inactivate2'))) {
+	if (!is_array($_POST['job_id'])) $jobA=array(0);
+	else $jobA=$_POST['job_id'];
+
+	$status=($_POST['action']=='inactivate2')?0:1;
+
+	$sql="UPDATE job SET status=$status WHERE job_id IN (".implode(',',$jobA).")";
+	$result=$mysqli->query($sql);
+
+	header('Location: /job.php'); exit();
 
 }
 
@@ -299,57 +309,69 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	</div>
 </form>
 
-<table>
-	<tr>
-		<th><a href="javascript:checkAll('job_id')">Select</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_job_title">Job title:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_degree">Degree:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_salary">Annual Salary:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_office_name">Office:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_skillset">Skill(s):</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_status">Status:</a></th>
-		<th>Actions:</th>
-	</tr>
-	<tbody>
-<?php
-	if ($rs_row->num_rows==0) {
-		echo '
-			<tr>
-				<td class="inactive italic" colspan=8>(none)</td>
-			</tr>';
-	}
-	while ($row=$rs_row->fetch_assoc()) {
-?>
-		<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
-			<td class="center"><input name="job_id[]" type="checkbox" value="<?=$row['job_id'];?>" /></td>
-			<td>
-				<a href="?action=modify&amp;job_id=<?=$row['job_id'];?>">
-					<?=stripslashes($row['job_title']);?>
-				</a>
-			</td>
-			<td><?=stripslashes($row['degree']);?></td>
-			<td><?php 
-			if ($row['salary']>0) echo '$'.number_format(stripslashes($row['salary']),2);
-			else echo '- -';
-			?></td>
-			<td><?=stripslashes($row['office_name']);?></td>
-			<td><?php 
-			if (strlen(trim($row['skillset']))==0) echo '<span class="inactive italic">(none)</span>';
-			else echo stripslashes($row['skillset']);
-			?></td>
-			<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
-			<td><?php if ($row['status']==1) {?>
-				<a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match Employees</a><?php } else echo '- -'; ?>
-			</td>
+<form name="generic" action="" method="POST">
+	<table>
+		<tr>
+			<th><a href="javascript:checkAll('job_id[]')">Select</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_job_title">Job title:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_degree">Degree:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_salary">Annual Salary:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_office_name">Office:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_skillset">Skill(s):</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_status">Status:</a></th>
+			<th>Actions:</th>
 		</tr>
-<?php
-	}
-?>
-	</tbody>
-</table>
-<div class="standard">
-	<a href="?action=add" class="button">+&nbsp;Add Job</a>
-</div>
+		<tbody>
+	<?php
+		if ($rs_row->num_rows==0) {
+			echo '
+				<tr>
+					<td class="inactive italic" colspan=8>(none)</td>
+				</tr>';
+		}
+		while ($row=$rs_row->fetch_assoc()) {
+	?>
+			<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
+				<td class="center"><input name="job_id[]" type="checkbox" value="<?=$row['job_id'];?>" /></td>
+				<td>
+					<a href="?action=modify&amp;job_id=<?=$row['job_id'];?>">
+						<?=stripslashes($row['job_title']);?>
+					</a>
+				</td>
+				<td><?=stripslashes($row['degree']);?></td>
+				<td><?php 
+				if ($row['salary']>0) echo '$'.number_format(stripslashes($row['salary']),2);
+				else echo '- -';
+				?></td>
+				<td><?=stripslashes($row['office_name']);?></td>
+				<td><?php 
+				if (strlen(trim($row['skillset']))==0) echo '<span class="inactive italic">(none)</span>';
+				else echo stripslashes($row['skillset']);
+				?></td>
+				<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+				<td><?php if ($row['status']==1) {?>
+					<a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match Employees</a><?php } else echo '- -'; ?>
+				</td>
+			</tr>
+	<?php
+		}
+	?>
+		</tbody>
+	</table>
+	<div class="standard" style="width:98%;">
+		<div class="inline" style="width:40%;">
+			<select name="action">
+				<option value="0">(select an action)</option>
+				<option value="inactivate2">Inactivate selected</option>
+				<option value="activate2">Activate selected</option>
+			</select>&nbsp;
+			<input name="submt" type="submit" value="Update" class="button" style="margin-top:-10px;" />
+		</div>
+		<div class="inline right" style="float:right;">
+			<a href="?action=add" class="button">+&nbsp;Add Employee</a>
+		</div>
+	</div>
+</form>
 <?php
 }
 

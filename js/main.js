@@ -4,16 +4,10 @@ function updateToHr(field_name) {
 	$('[name="message"]').val('Please update my '+label+' to: [ENTER NEW VALUE HERE].\n\nYour assistance is very much appreciated!');
 }
 
+var checkFlag=true;
 function checkAll (field_name) {
-	var checkFlag=0;
-
-	if (checkFlag==0) {
-		$('[name="'+field_name+'[]"]').prop('checked',true);
-		checkFlag=1;
-	} else {
-		$('[name="'+field_name+'[]"]').removeProp('checked');
-		checkFlag=0;
-	}
+	$('[name="'+field_name+'"]').prop('checked',checkFlag);
+	checkFlag=!checkFlag;
 }
 
 $(function () {

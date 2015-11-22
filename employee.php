@@ -48,8 +48,16 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 //	Redirect...
 	header('Location: /employee.php?'.$eStr); exit();
 
-} elseif ($_POST['action']=='delete2') {
+} elseif (in_array($_POST['action'],array('activate2','inactivate2'))) {
+	if (!is_array($_POST['employee_id'])) $employeeA=array(0);
+	else $employeeA=$_POST['employee_id'];
 
+	$status=($_POST['action']=='inactivate2')?0:1;
+
+	$sql="UPDATE user SET status=$status WHERE employee_id IN (".implode(',',$employeeA).")";
+	$result=$mysqli->query($sql);
+
+	header('Location: /employee.php'); exit();
 }
 
 if ($_REQUEST['action']=='add') $title="Add an Employee";
@@ -277,67 +285,79 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	</div>
 </form>
 
-<table>
-	<tr>
-		<th><a href="javascript:checkAll('employee_id')">Select</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_last_name">Last name:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_first_name">First name:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_employee_id">Employee ID:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_office_name">Office:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_hire_date">Hire date:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_email_address">Email address:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_office_phone">Office phone:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_job_title">Job title:</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_skillset">Skill(s):</a></th>
-		<th><a href="javascript:void(0)" class="sort" id="sort_status">Status:</a></th>
-	</tr>
-	<tbody>
-<?php
-	if ($rs_row->num_rows==0) {
-		echo '<tr>
-			<td class="inactive italic" colspan=11>(none)</td>
-			</tr>';
-	}
-
-	while ($row=$rs_row->fetch_assoc()) {
-?>
-		<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
-			<td class="center"><input name="employee_id[]" type="checkbox" value="<?=$row['employee_id'];?>" /></td>
-			<td>
-				<a href="?action=modify&amp;employee_id=<?=$row['employee_id'];?>">
-					<?=stripslashes($row['last_name']);?>
-				</a>
-			</td>
-			<td><?=stripslashes($row['first_name']);?></td>
-			<td><?=stripslashes($row['employee_id']);?></td>
-			<td><?=stripslashes($row['office_name']);?></td>
-			<td><?php
-			if (!strtotime($row['hire_date'])) echo '<span class="inactive italic">(none)</span>';
-			else echo date('n/j/Y',strtotime($row['hire_date']));
-			?></td>
-			<td><?=stripslashes($row['email_address']);?></td>
-			<td><?php
-			if(strlen(trim($row['office_phone']))==0) echo '- -';
-			else echo $row['office_phone'];
-			?></td>
-			<td><?php
-			if (strlen(trim($row['job_title']))>0) echo stripslashes($row['job_title']);
-			else echo '- -';
-			?></td>
-			<td><?php 
-			if (strlen(trim($row['skillset']))==0) echo '<span class="inactive italic">(none)</span>';
-			else echo stripslashes($row['skillset']);
-			?></td>
-			<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+<form name="generic" action="" method="POST">
+	<table>
+		<tr>
+			<th><a href="javascript:checkAll('employee_id[]')">Select</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_last_name">Last name:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_first_name">First name:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_employee_id">Employee ID:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_office_name">Office:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_hire_date">Hire date:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_email_address">Email address:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_office_phone">Office phone:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_job_title">Job title:</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_skillset">Skill(s):</a></th>
+			<th><a href="javascript:void(0)" class="sort" id="sort_status">Status:</a></th>
 		</tr>
-<?php
-	}
-?>
-	</tbody>
-</table>
-<div class="standard">
-	<a href="?action=add" class="button">+&nbsp;Add Employee</a>
-</div>
+		<tbody>
+	<?php
+		if ($rs_row->num_rows==0) {
+			echo '<tr>
+				<td class="inactive italic" colspan=11>(none)</td>
+				</tr>';
+		}
+
+		while ($row=$rs_row->fetch_assoc()) {
+	?>
+			<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
+				<td class="center"><input name="employee_id[]" type="checkbox" value="<?=$row['employee_id'];?>" /></td>
+				<td>
+					<a href="?action=modify&amp;employee_id=<?=$row['employee_id'];?>">
+						<?=stripslashes($row['last_name']);?>
+					</a>
+				</td>
+				<td><?=stripslashes($row['first_name']);?></td>
+				<td><?=stripslashes($row['employee_id']);?></td>
+				<td><?=stripslashes($row['office_name']);?></td>
+				<td><?php
+				if (!strtotime($row['hire_date'])) echo '<span class="inactive italic">(none)</span>';
+				else echo date('n/j/Y',strtotime($row['hire_date']));
+				?></td>
+				<td><?=stripslashes($row['email_address']);?></td>
+				<td><?php
+				if(strlen(trim($row['office_phone']))==0) echo '- -';
+				else echo $row['office_phone'];
+				?></td>
+				<td><?php
+				if (strlen(trim($row['job_title']))>0) echo stripslashes($row['job_title']);
+				else echo '- -';
+				?></td>
+				<td><?php 
+				if (strlen(trim($row['skillset']))==0) echo '<span class="inactive italic">(none)</span>';
+				else echo stripslashes($row['skillset']);
+				?></td>
+				<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+			</tr>
+	<?php
+		}
+	?>
+		</tbody>
+	</table>
+	<div class="standard" style="width:98%;">
+		<div class="inline" style="width:40%;">
+			<select name="action">
+				<option value="0">(select an action)</option>
+				<option value="inactivate2">Inactivate selected</option>
+				<option value="activate2">Activate selected</option>
+			</select>&nbsp;
+			<input name="submt" type="submit" value="Update" class="button" style="margin-top:-10px;" />
+		</div>
+		<div class="inline right" style="float:right;">
+			<a href="?action=add" class="button">+&nbsp;Add Employee</a>
+		</div>
+	</div>
+</form>
 <?php
 }
 

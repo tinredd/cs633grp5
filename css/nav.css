@@ -64,8 +64,9 @@ div.logout {
 
 /*	Logo	*/
 div.logo {
-	width: 100%;
+	width: 98%;
 	height: 125px;
-	background-color: #BBB;
+	background-color: #004466;
 	margin-bottom: 10px;
+	border-radius: 5px;
 }

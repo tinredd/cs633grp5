@@ -27,7 +27,7 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 		<?php 
 			if ($_SESSION['employee_id']>0) {
 				echo '<div class="logout">
-				Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;|&nbsp;
+				Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;|&nbsp;My Account&nbsp;|&nbsp;
 				<a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a>
 				</div>';
 			}?>

@@ -4,6 +4,7 @@ table {
 	border: 0px solid #000;
 	border-radius: 5px;
 	margin-bottom: 20px;
+	width: 98%;
 }
 
 table tr:first-child th:first-child, table tr:first-child td:first-child {
@@ -19,20 +20,20 @@ table .button {
 }
 
 tr th {
-	border-bottom: 2px solid #30829c;
-	background-color: #4fabc9;
+	border-bottom: 2px solid #00334d;
+	background-color: #006699;
 	padding: 7px;
 	color: #FFF;
 	text-align: center;
 }
 
 tr th:not(:last-child) {
-	border-right: 1px solid #30829c;
+	border-right: 1px solid #00334d;
 }
 
 th a {
 	text-decoration: none;
-	text-shadow: 2px 2px #30829c;
+	text-shadow: 2px 2px #00334d;
 	color: #FFF;
 }
 
@@ -45,16 +46,24 @@ tr td:not(:last-child) {
 	border-right: 1px solid #AAA;
 }
 
-tr:not(:first-child) td {
+tbody tr:not(:first-child) td {
 	border-top: 1px solid #FFF;
 }
 
+tbody tr:not(:first-child):hover {
+	background-color: #FFF;
+}
+
+tbody tr:first-child:hover {
+	background-color: #FFF;
+}
+
 tbody tr:nth-child(even) {
-	background-color: #ebf6f9;
+	background-color: #cceeff;
 }
 
 tbody tr:nth-child(odd) {
-	background-color: #d8edf3;
+	background-color: #e5f7ff;
 }
 
 tr.inactive {
