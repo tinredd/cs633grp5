@@ -66,9 +66,11 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 //	Redirect...
 	header('Location: /account.php?t=2'.$eStr); exit();
 
+//	Contact HR...
 } elseif ($_POST['action']=='hr2' && $_POST['t']==3) {
 //	Get errors...
 	$errorsA=array();
+	$to=$mysqli->fetch_value("SELECT contact_email FROM office WHERE office_id={$_SESSION['office_id']}");
 
 	if (strlen(trim($_POST['message']))==0) $errorsA[]='message';
 	if (strlen(trim($_POST['subject']))==0 && strlen(trim($_POST['subjecta']))==0) $errorsA[]='subject';
@@ -85,7 +87,6 @@ Update field: ".$ufieldsA[$_POST['field']]."
 ";
 
 //	define variables...
-	$to='tinredd@gmail.com';
 	$from=$_SESSION['email_address'];
 	if (strlen(trim($_REQUEST['f']))>0) $subject=strip_tags($_POST['subjecta']);
 	else $subject=strip_tags($_POST['subject']);
@@ -317,7 +318,7 @@ Your assistance is very much appreciated!';
 		}
 		?>		</div>
 				<div>
-					<a href="javascript:void(0)" class="button" id="myskill">Add New Skill</a>
+					<a href="javascript:void(0)" class="button" id="myskill" style="margin-top:5px;">Add New Skill</a>
 				</div>
 			</div>
 		</div>
@@ -359,7 +360,7 @@ Your assistance is very much appreciated!';
 		<div>Employee ID:</div>
 		<div>
 			<div><?=stripslashes($_SESSION['employee_id']);?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('employee_id'));?>">[ Contact HR for updates ]</a></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('employee_id'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
@@ -367,7 +368,7 @@ Your assistance is very much appreciated!';
 		<div>First name:</div>
 		<div>
 			<div><?=stripslashes($_SESSION['first_name']);?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('first_name'));?>">[ Contact HR for updates ]</a></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('first_name'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
@@ -375,15 +376,15 @@ Your assistance is very much appreciated!';
 		<div>Last name:</div>
 		<div>
 			<div><?=stripslashes($_SESSION['last_name']);?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('last_name'));?>">[ Contact HR for updates ]</a></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('last_name'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
 	<div class="form_row">
 		<div>Office location:</div>
 		<div>
-			<div><?=stripslashes($office['office_name']).' - '.$office['office_id'].' ('.$office['city'].', '.$office['state'].')';?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('office_id'));?>">[ Contact HR for updates ]</a></div>
+			<div><?=stripslashes($office['office_name'].' - '.$office['office_id'].' ('.$office['city'].', '.$office['state'].')');?></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('office_id'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
@@ -391,7 +392,7 @@ Your assistance is very much appreciated!';
 		<div>Internal email address:</div>
 		<div>
 			<div><?=$_SESSION['email_address'];?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('email_address'));?>">[ Contact HR for updates ]</a></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('email_address'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
@@ -399,7 +400,7 @@ Your assistance is very much appreciated!';
 		<div>Password:</div>
 		<div>
 			<div><span class="italic inactive">(removed from view)</span></div>
-			<div><a href="?t=2">[ Update password ]</a></div>
+			<div><a href="?t=2" class="button">Update password</a></div>
 		</div>
 	</div>
 
@@ -419,7 +420,7 @@ Your assistance is very much appreciated!';
 			<div><?php if (strtotime($_SESSION['hire_date'])) echo date('n/j/Y', strtotime($_SESSION['hire_date']));
 			else echo '<span class="italic inactive">(no date entered)</span>';
 			?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('hire_date'));?>">[ Contact HR for updates ]</a></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('hire_date'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 

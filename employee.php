@@ -12,6 +12,7 @@ if (in_array($_POST['action'],array('add2','modify2'))) {
 	if (!($_POST['office_id']>0)) $errorsA[]='office_id';
 	if (!strtotime($_POST['hire_date'])) $errorsA[]='hire_date';
 	if (strlen(trim($_POST['email_address']))==0) $errorsA[]='email_address';
+	if (!validEmail($_POST['email_address'])) $errorsA[]='email_address';
 
 	if (count($errorsA)>0) {
 		$eStr='action='.substr($_POST['action'],0,-1);
@@ -61,7 +62,16 @@ include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 
 if (in_array($_REQUEST['action'],array('add','modify'))) {
 	$employee_id=($_REQUEST['employee_id']>0)?$_REQUEST['employee_id']:0;
-	$row=$mysqli->fetch_row("SELECT * FROM user WHERE employee_id=$employee_id");
+
+	$sql="SELECT U.*,GROUP_CONCAT(S.skill_name) AS skillset 
+	FROM user U 
+	LEFT JOIN employee_skill E ON E.employee_id=U.employee_id 
+	LEFT JOIN skill S ON S.skill_id=E.skill_id 
+	WHERE U.employee_id=$employee_id
+	GROUP BY E.employee_id
+	ORDER BY S.skill_name";
+
+	$row=$mysqli->fetch_row($sql);
 
 	$sql="SELECT * FROM office ORDER BY office_name";
 	$officesA=$mysqli->fetch_rows($sql);
@@ -128,11 +138,24 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 		?>"<?php if (in_array('hire_date',$errorsA)) echo ' class="error"';?> /></div>
 	</div>
 
+	<div class="form_row">
+		<div>Skill(s):</div>
+		<div>
+			<div><?php
+			if (strlen(trim($row['skillset']))>0) echo stripslashes($row['skillset']);
+			else echo '<span class="italic inactive">(no skills entered)</span>';
+			?></div>
+		</div>
+	</div>
+
 	<?php if ($_REQUEST['action']=='modify') { ?>
 	<div class="form_row">
 		<div>Notes:</div>
 		<div>
-			<div><?=stripslashes($row['notes']);?></div>
+			<div><?php
+			if (strlen(trim($row['notes']))>0) echo stripslashes(nl2br($row['notes']));
+			else echo '<span class="italic inactive">(no notes entered)</span>';
+			?></div>
 		</div>
 	</div>
 	<? } ?>

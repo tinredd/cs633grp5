@@ -63,11 +63,14 @@ div.tag {
 	padding: 3px 7px;
 	width: auto;
 	display: inline-block;
+	font-size: 0.9em;
+	color: #888;
 };
 
 div.logout {
 	text-align: right;
 	font-size: 0.8em;
+	width: 100%;
 }
 
 /*	Formatting	*/

@@ -134,7 +134,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 		<div>
 			<select name="years_experience"<?php if (in_array('years_experience',$errorsA)) echo ' class="error"';?>>
 			<?php
-			for ($i=0; $i<=20; $i++) {
+			for ($i=0; $i<=20; $i+=0.5) {
 				echo '<option value="'.$i.'"';
 				if ($i==$row['years_experience']) echo ' selected';
 				echo '>'.$i.'</option>';

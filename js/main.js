@@ -107,7 +107,7 @@ $(function () {
 
 					$newskilllink=$('<a></a>');
 					$newskilllink.html('&times').addClass('button').addClass('removeskill').css({
-						'margin':'-10px 0 5px 5px'
+						'margin':'0px 0 5px 5px'
 					}).attr('id','newskilllink_'+(ui.item.value));
 
 					$newskillcontainertag.append($newskilltag);
@@ -159,7 +159,6 @@ $(function () {
 			$newskilllink=$('<a></a>');
 			$newskilllink.html('Add').addClass('button').css({
 				'margin-left':'5px',
-				'margin-top':'-10px'
 			}).click(function() {
 				$skillname=$(this).siblings('[name="skill_name"]').eq(0);
 				$newskill=$(this).parents('.newskill').eq(0);

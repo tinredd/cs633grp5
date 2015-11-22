@@ -1,6 +1,10 @@
 <?php
 session_start();
 if (!isset($includes) || $includes===true) include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
+
+if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_SESSION['employee_id'])) {
+	header('Location: /index.php'); exit();
+}
 ?>
 <!doctype html>
 <html>
