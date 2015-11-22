@@ -57,7 +57,7 @@ $(function () {
 
 			$newskilllabel=$('<div></div>');
 			if ($('.newskill').length==0) {
-				$newskilllabel.html('Skill name').css({
+				$newskilllabel.html('Skill name <span class="inactive italic">(select from list)</span>').css({
 					'font-size':'0.8em',
 					'margin-top':'10px'
 				});

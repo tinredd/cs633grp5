@@ -5,7 +5,7 @@ div.breadcrumbs {
 
 /*	Tabs navigation	*/
 ul.tabs {
-	width: 100%;
+	width: 95%;
 	border-bottom: 2px solid #AAA;
 }
 
@@ -45,4 +45,19 @@ ul.tabs>li>a:not(.active):hover {
 ul.tabs>li>a:not(.active) {
 	position: relative;
 	top: 6px;
+}
+
+/*	Logout	*/
+div.logout {
+	text-align: right;
+	font-size: 0.8em;
+	width: 100%;
+}
+
+/*	Logo	*/
+div.logo {
+	width: 100%;
+	height: 125px;
+	background-color: #BBB;
+	margin-bottom: 10px;
 }
