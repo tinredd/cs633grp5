@@ -6,6 +6,18 @@ $job_id=($_REQUEST['job_id']>0)?$_REQUEST['job_id']:0;
 if ($job_id==0) { header('Location: /job.php'); exit(); }
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+
+//  Get job's information...
+$sql="SELECT J.*, J.status AS job_status,
+    O.office_name,O.city,O.state,
+    GROUP_CONCAT(S.skill_name SEPARATOR ', ') AS skillset 
+    FROM job J
+    LEFT JOIN office O ON O.office_id=J.office_id
+    LEFT JOIN job_skill SJ ON SJ.job_id=J.job_id
+    LEFT JOIN skill S ON S.skill_id=SJ.skill_id 
+    WHERE J.job_id=$job_id";
+$row=$mysqli->fetch_row($sql);
+
 ?>
 <div>Algorithm...</div>
 <ul>
@@ -24,16 +36,8 @@ include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 </div>
 
 <?php
-//  Get job's information...
-$sql="SELECT J.*, 
-    O.office_name,O.city,O.state,
-    GROUP_CONCAT(S.skill_name SEPARATOR ', ') AS skillset 
-    FROM job J
-    LEFT JOIN office O ON O.office_id=J.office_id
-    LEFT JOIN job_skill SJ ON SJ.job_id=J.job_id
-    LEFT JOIN skill S ON S.skill_id=SJ.skill_id 
-    WHERE J.job_id=$job_id";
-$row=$mysqli->fetch_row($sql);
+if ($row['job_status']==0) echo '<div class="error">This job is no longer active! <a href="/job.php">Search again</a></div>';
+else {
 
 //  Get the job's skills...
 $job_skillA=explode(',',$mysqli->fetch_value("SELECT GROUP_CONCAT(skill_id) FROM job_skill WHERE job_id=$job_id"));
@@ -203,5 +207,6 @@ array_multisort($pointsA,SORT_DESC,$yearsA,SORT_DESC,$empA);
 } ?>
 
 <?php
+}
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
 ?>

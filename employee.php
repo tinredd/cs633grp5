@@ -185,6 +185,10 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 		$endDate=strtotime($_POST['end_date']);
 	}
 
+//	Is this person a location contact?
+	$sql="SELECT COUNT(*) FROM office WHERE contact_email='{$_SESSION['email_address']}'";
+	$contact=$mysqli->fetch_value($sql);	
+
 	if (strlen(trim($_POST['dir']))>0) $dir=$_POST['dir'];
 	else $dir='ASC';
 
@@ -201,7 +205,10 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	if ($_POST['skill_id']>0) $andA[]="S.skill_id= ".$_POST['skill_id'];
 	if (strlen(trim($_POST['job_title']))>0) $andA[]="job_title LIKE '".$_POST['job_title']."%'";
 
-	if (count($andA)>0) $sql.=" WHERE ".implode(' AND ',$andA);
+	$whereA[]=implode(' AND ',$andA);
+	if ($contact==1) $whereA[]="U.employee_id={$_SESSION['employee_id']}";
+
+	if (count($andA)>0) $sql.=" WHERE (".implode(' OR ',$whereA).")";
 	$sql.=" GROUP BY U.employee_id";
 	if (strlen(trim($_POST['sort']))>0) {
 		$sql.=" ORDER BY {$_POST['sort']} $dir";
@@ -294,7 +301,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 
 	while ($row=$rs_row->fetch_assoc()) {
 ?>
-		<tr>
+		<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
 			<td class="center"><input name="employee_id[]" type="checkbox" value="<?=$row['employee_id'];?>" /></td>
 			<td>
 				<a href="?action=modify&amp;employee_id=<?=$row['employee_id'];?>">

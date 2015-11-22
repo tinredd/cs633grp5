@@ -179,7 +179,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 
 				<div id="skillfields"></div>
 				
-				<div><a href="javascript:void(0)" class="button" id="newskill">Add new skill</a></div>
+				<div><a href="javascript:void(0)" class="button" id="newskill" style="margin-top: 10px;">Add new skill</a></div>
 			</div>
 		</div>
 	</div>
@@ -320,7 +320,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 	}
 	while ($row=$rs_row->fetch_assoc()) {
 ?>
-		<tr>
+		<tr<?php if ($row['status']==0) echo ' class="inactive"';?>>
 			<td class="center"><input name="job_id[]" type="checkbox" value="<?=$row['job_id'];?>" /></td>
 			<td>
 				<a href="?action=modify&amp;job_id=<?=$row['job_id'];?>">
@@ -338,7 +338,9 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 			else echo stripslashes($row['skillset']);
 			?></td>
 			<td><?php if ($row['status']==1) echo 'Active'; else echo 'Inactive';?></td>
-			<td><a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match Employees</a></td>
+			<td><?php if ($row['status']==1) {?>
+				<a href="/match.php?job_id=<?=$row['job_id'];?>" class="button">Match Employees</a><?php } else echo '- -'; ?>
+			</td>
 		</tr>
 <?php
 	}
