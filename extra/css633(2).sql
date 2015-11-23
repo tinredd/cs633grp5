@@ -235,21 +235,21 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`employee_id`, `office_id`, `first_name`, `last_name`, `email_address`, `password`, `office_phone`, `user_type`, `job_title`, `hire_date`, `notes`, `status`, `last_updated`)
 VALUES
-	(3242342,3,'Donald','Henderson','donald.henderson@company.com','YX·jõá\0¥)!Þ','',2,'','2015-11-16',NULL,1,'2015-11-21 17:23:13'),
-	(3244543,4,'Michael','Boccafola','michael.boccafola@company.com','YX·jõá\0¥)!Þ','',2,'Senior Application Developer','2012-11-01',NULL,1,'2015-11-20 19:37:25'),
-	(3435332,1,'Tracy','Smith','tracy.smith@company.com','YX·jõá\0¥)!Þ','617-415-2222 x432',1,'HR Partner',NULL,'My notes.',1,'2015-11-20 13:28:14'),
-	(4542132,2,'Alex','Elentukh','alex.elentukh@company.com','YX·jõá\0¥)!Þ','',2,'Technology Specialist','2005-06-15',NULL,1,'2015-11-20 19:38:36'),
-	(4546476,2,'Gary','Johnson','gary.johnson@company.com','YX·jõá\0¥)!Þ',NULL,1,NULL,NULL,NULL,1,NULL),
-	(6465443,3,'Linda','Hernandez','linda.hernandez@company.com','YX·jõá\0¥)!Þ',NULL,1,NULL,NULL,NULL,1,NULL),
-	(6543512,1,'Tina','Redd','tina.redd@company.com','YX·jõá\0¥)!Þ','',2,'Database Admin','2009-02-09',NULL,1,'2015-11-20 19:37:37'),
-	(8435443,2,'Lawrence','Johnson','larry.johnson@company.com','YX·jõá\0¥)!Þ','',2,'Application Developer','1996-08-21',NULL,1,'2015-11-20 19:38:54'),
-	(8436743,3,'Mark','Faetanini','mark.faetanini@company.com','YX·jõá\0¥)!Þ','',2,'Project Manager','2014-01-07',NULL,1,'2015-11-20 19:39:13'),
-	(8686232,4,'Michael','Spaulding','michael.spaulding@company.com','YX·jõá\0¥)!Þ',NULL,1,NULL,NULL,NULL,1,NULL);
+	(3242342,3,'Donald','Henderson','donald.henderson@company.com','','',2,'','2015-11-16',NULL,1,'2015-11-21 17:23:13'),
+	(3244543,4,'Michael','Boccafola','michael.boccafola@company.com','','',2,'Senior Application Developer','2012-11-01',NULL,1,'2015-11-20 19:37:25'),
+	(3435332,1,'Tracy','Smith','tracy.smith@company.com','','617-415-2222 x432',1,'HR Partner',NULL,'My notes.',1,'2015-11-20 13:28:14'),
+	(4542132,2,'Alex','Elentukh','alex.elentukh@company.com','','',2,'Technology Specialist','2005-06-15',NULL,1,'2015-11-20 19:38:36'),
+	(4546476,2,'Gary','Johnson','gary.johnson@company.com','',NULL,1,NULL,NULL,NULL,1,NULL),
+	(6465443,3,'Linda','Hernandez','linda.hernandez@company.com','',NULL,1,NULL,NULL,NULL,1,NULL),
+	(6543512,1,'Tina','Redd','tina.redd@company.com','','',2,'Database Admin','2009-02-09',NULL,1,'2015-11-20 19:37:37'),
+	(8435443,2,'Lawrence','Johnson','larry.johnson@company.com','','',2,'Application Developer','1996-08-21',NULL,1,'2015-11-20 19:38:54'),
+	(8436743,3,'Mark','Faetanini','mark.faetanini@company.com','','',2,'Project Manager','2014-01-07',NULL,1,'2015-11-20 19:39:13'),
+	(8686232,4,'Michael','Spaulding','michael.spaulding@company.com','',NULL,1,NULL,NULL,NULL,1,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
+UPDATE users SET password=AES_ENCRYPT('cs633grp5','4034ewewfejiooi3');
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
