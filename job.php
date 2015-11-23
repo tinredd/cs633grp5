@@ -79,6 +79,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) $bcA['/job.php']='List 
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 
+//	The form to add a new
 if (in_array($_REQUEST['action'],array('add','modify'))) {
 	$job_id=($_REQUEST['job_id']>0)?$_REQUEST['job_id']:0;
 	$row=$mysqli->fetch_row("SELECT * FROM job WHERE job_id=$job_id");
@@ -211,6 +212,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 
 <?php
 } elseif (!isset($_REQUEST['action'])) {
+//	Initialize start date/end date	
 	if (!isset($_POST['start_date'])) {
 		$startDate=mktime(0,0,0,date('n'),date('j')+1,date('Y')-10);
 		$endDate=mktime(0,0,0,date('n'),date('j'),date('Y'));
@@ -219,6 +221,7 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 		$endDate=strtotime($_POST['end_date']);
 	}
 
+//	Sort direction
 	if (strlen(trim($_POST['dir']))>0) $dir=$_POST['dir'];
 	else $dir='ASC';
 
@@ -227,25 +230,32 @@ if (in_array($_REQUEST['action'],array('add','modify'))) {
 
 	$andA=array();
 
+//	Compose the sql for the job listing
 	$sql="SELECT U.*, GROUP_CONCAT(skill_name) AS skillset,O.office_name FROM job U 
 	LEFT JOIN job_skill E ON E.job_id=U.job_id
 	LEFT JOIN skill S ON S.skill_id=E.skill_id
 	LEFT JOIN office O ON O.office_id=U.office_id";
 
+//	Compose filters...
 	if ($_POST['office_id']>0) $andA[]="U.office_id=".$_POST['office_id'];
 	if ($_POST['skill_id']>0) $andA[]="S.skill_id= ".$_POST['skill_id'];
 	if (strlen(trim($_POST['job_title']))>0) $andA[]="job_title LIKE '".$_POST['job_title']."%'";
 
+//	if there is at least one filter, add a 'WHERE' clause to the query
 	if (count($andA)>0) $sql.=" WHERE ".implode(' AND ',$andA);
 	$sql.=" GROUP BY U.job_id";
+
+//	Use an ORDER BY if there is a 'sort' field	
 	if (strlen(trim($_POST['sort']))>0) {
 		$sql.=" ORDER BY {$_POST['sort']} $dir";
 	}
 	$rs_row=$mysqli->query($sql);
 
+//	Grab the list of offices for the 'office' filter drop down
 	$sql="SELECT * FROM office ORDER BY office_name";
 	$officesA=$mysqli->fetch_rows($sql);
 
+//	Grab the list of skills for the 'skills' filter drop down 
 	$sql="SELECT * FROM skill WHERE skill_status=1 ORDER BY skill_name";
 	$skillsA=$mysqli->fetch_rows($sql);
 ?>
