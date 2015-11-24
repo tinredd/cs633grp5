@@ -43,11 +43,6 @@ switch($tab) {
 }
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
-
-$errorsA=unserialize(base64_decode(urlencode($_REQUEST['e'])));
-if (!is_array($errorsA)) $errorsA=array();
-
-if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the highlighted fields</div>';
 ?>
 <ul class="tabs">
 	<li><a href="?t=1"<?php if ($tab==1) echo ' class="active"';?>>Account Information</a></li>
@@ -56,7 +51,11 @@ if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the
 	<li><a href="?t=4"<?php if ($tab==4) echo ' class="active"';?>>My Skills</a></li>
 </ul>
 <?php
-//	Update Password
+
+$errorsA=unserialize(base64_decode(urlencode($_REQUEST['e'])));
+if (!is_array($errorsA)) $errorsA=array();
+
+if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the highlighted fields</div>';
 
 if ($tab==2) {
 	include($_SERVER['DOCUMENT_ROOT'].'/app/views/AccountUpdatePwdView.php');

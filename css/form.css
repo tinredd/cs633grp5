@@ -53,7 +53,7 @@ button, input[type="button"], input[type="submit"], input[type="reset"], a.butto
 	margin-top: 10px;
 	text-transform: uppercase;
 }
-.button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, a.button:hover {
+button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, a.button:hover {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
 	background: -moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
 	background: -webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
@@ -66,6 +66,13 @@ button, input[type="button"], input[type="submit"], input[type="reset"], a.butto
 button:active, input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active, a.button:active {
 	position: relative;
 	top: 1px;
+}
+
+.button>img {
+	margin: 2px 7px 0 0;
+	position: relative;
+	top: 2px;
+	width: 12px;
 }
 
 a.button {
@@ -138,4 +145,13 @@ div.formholder>div:first-child {
 
 .formholder input[type="text"], .formholder input[type="password"], .formholder input[type="date"], .formholder textarea, .formholder select {
 	width: 80%;
+}
+
+.specialselect {
+	font-family: Arial;
+	color: #777777;
+	text-transform: uppercase;
+	font-size: 0.7em;
+	font-weight: bold;
+	cursor: pointer;
 }
