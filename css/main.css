@@ -102,11 +102,40 @@ div.tag {
 .floatleft { float: left; }
 .floatright { float: right; }
 
-/*	Divs	*/
+/*	Portal Divs	*/
+
+.portalpane>div {
+	padding: 15px;	
+}
+
 .portalpane {
-	border: 1px solid #888;
+	border: 2px solid #005F8C;
+	border-radius: 10px;
+	float: left;
+	font-size:0.8em;
 	width: calc(100% / 3 - 7px);
 	margin-right: 2px;
 	height: 150px;
 	display: inline-block;
+}
+
+.portalpane>div:first-child {
+	background-color: #005F8C;
+	color: #FFF;
+	padding: 10px;
+	border-radius: 7px 7px 0 0;
+	margin-bottom: 20px;
+
+}
+
+.portalheaderimage {
+	background-color: #113647;
+	width: 25px;
+	height: 25px;
+	border-radius: 25px;
+	text-align: center;
+	padding-top: 7px;
+	font-weight: bold;
+	margin-right: 2%;
+	color: #76B33C;
 }

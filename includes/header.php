@@ -32,7 +32,7 @@ if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 		<?php 
 			if ($_SESSION['employee_id']>0) {
 				echo '<div class="logout">
-				Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;|&nbsp;My Account&nbsp;|&nbsp;
+				Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;|&nbsp;<a href="/account.php">My Account</a>&nbsp;|&nbsp;
 				<a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a>
 				</div>';
 			}?>
