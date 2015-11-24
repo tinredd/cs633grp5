@@ -1,8 +1,13 @@
 <?php
 session_start();
+
+$bcA=array();
+$uri=explode('?',$_SERVER['REQUEST_URI']);
+$url=array_shift($uri);
+
 if (!isset($includes) || $includes===true) include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
 
-if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_SESSION['employee_id'])) {
+if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 	header('Location: /index.php'); exit();
 }
 ?>
@@ -34,7 +39,7 @@ if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php' && !isset($_
 			<div class="breadcrumbs">
 				<?php 
 			//	Add the "Home" breadcrumb if we are not on the home page...
-				if (array_shift(explode('?',$_SERVER['REQUEST_URI']))!='/index.php') echo '<div style="display:inline-block;"><a href="/index.php">Home</a></div>';
+				if ($url!='/index.php') echo '<div style="display:inline-block;"><a href="/index.php">Home</a></div>';
 
 			//	Adding breadcrumbs
 				if (is_array($bcA)) {
