@@ -13,7 +13,7 @@ div.breadcrumbs {
 /*	Tabs navigation	*/
 ul.tabs {
 	width: 95%;
-	border-bottom: 2px solid #AAA;
+	border-bottom: 2px solid #005F8C;
 }
 
 ul.tabs>li {
@@ -24,29 +24,29 @@ ul.tabs>li {
 ul.tabs>li>a {
 	text-decoration: none;
 	padding: 5px 15px;
-	border: 2px solid #AAA;
+	border: 2px solid #005F8C;
 	border-bottom: 0;
-	border-radius: 4px 4px 0 0;
-	background-color: #DDD;
+	border-radius: 5px 5px 0 0;
+	background-color: #FFF;
 	font-size: 0.9em;
-	color: #555;
+	color: #005F8C;
 }
 
 ul.tabs>li>a.active {
-	background-color: #CCC;
+	background-color: #005F8C;
 	list-style-type: none;
 	display: inline-block;
 	padding: 11px 17px;
-	border: 2px solid #AAA;
+	border: 2px solid #005F8C;
 	border-bottom: 0;
 	position: relative;
 	top: 2px;
-	color: #777;
+	color: #FFF;
 }
 
 ul.tabs>li>a:not(.active):hover {
 	background-color: #EFEFEF;
-	color: #777;
+	color: #76B33C;
 }
 
 ul.tabs>li>a:not(.active) {
@@ -70,6 +70,7 @@ div.logo {
 	background-size: auto 125px;
 	margin-bottom: 10px;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 footer {
@@ -80,7 +81,7 @@ footer {
 	border-top: 1px solid #005F8C;
 	background-color: #0D4A66;
 	font-weight: bold;
-	margin-left: -8px;
+	margin: 20px 0 0 -8px;
 	padding: 7px 0;
 	color: #FFF;
 	font-size: 0.7em;

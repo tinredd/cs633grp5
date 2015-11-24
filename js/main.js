@@ -18,6 +18,10 @@ $(function () {
 		yearRange: "1972:2020"
 	});
 
+	$(document).on('click','.logo',function () {
+		window.location.href='/index.php';
+	});
+
 //	Table sorting functionality
 	$(document).on('click','.sort',function () {
 		var tmp=$(this).attr('id').split('_');

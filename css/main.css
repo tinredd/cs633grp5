@@ -15,6 +15,12 @@ a {
 }
 
 /*	Div list-style-position: */
+div.container {
+	clear: both;
+	float: left;
+	width: 100%;
+	margin-bottom: 30px;
+}
 
 div.standard {
 	clear: both;
@@ -114,7 +120,7 @@ div.tag {
 	float: left;
 	font-size:0.8em;
 	width: calc(100% / 3 - 7px);
-	margin-right: 2px;
+	margin-right: 5px;
 	height: 150px;
 	display: inline-block;
 }
