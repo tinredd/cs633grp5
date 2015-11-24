@@ -14,4 +14,3 @@ while ($row=$rs_row->fetch_assoc()) {
 }
 
 echo json_encode($rowA);
-?>

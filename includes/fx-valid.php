@@ -51,4 +51,3 @@ function validEmail($string='') {
 
     return $return;
 }
-?>

@@ -210,4 +210,3 @@ array_multisort($pointsA,SORT_DESC,$yearsA,SORT_DESC,$empA);
 <?php
 }
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
-?>

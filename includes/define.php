@@ -29,5 +29,3 @@ define('PASSWORD_SPECCHARS',1);
 
 //	Temp password settings (in minutes)
 define('TMPPASSWORD_EXPIRY',30);
-
-?>

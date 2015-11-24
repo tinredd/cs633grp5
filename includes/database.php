@@ -86,4 +86,3 @@ class Database extends mysqli {
 		$result=$this->query($sql);
 	}
 }
-?>

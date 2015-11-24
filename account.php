@@ -440,4 +440,3 @@ Your assistance is very much appreciated!';
 
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
-?>

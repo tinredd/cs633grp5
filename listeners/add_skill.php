@@ -40,4 +40,3 @@ $skillsA=$mysqli->fetch_rows($sql);
 </div>
 <?php
 if (count($errorsA)>0) echo '<div class="plainerror">'.implode('<br/>',$errorsA).'</div>';
-?>

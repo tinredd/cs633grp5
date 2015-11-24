@@ -16,6 +16,3 @@ if ($rs_row->num_rows==0) {
 	header('Location: /index.php'); exit();
 
 }
-
-
-?>

@@ -41,4 +41,3 @@ if (in_array($action,array('add','modify'))) {
 }
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
-?>

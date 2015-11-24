@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*	Form text input fields	*/
 input[type="text"], input[type="password"], input[type="date"], textarea, select {
 	border: 1px solid #888;
@@ -138,4 +139,117 @@ div.formholder>div:first-child {
 
 .formholder input[type="text"], .formholder input[type="password"], .formholder input[type="date"], .formholder textarea, .formholder select {
 	width: 80%;
+=======
+/*	Form text input fields	*/
+input[type="text"], input[type="password"], input[type="date"], textarea, select {
+	border: 1px solid #888;
+	border-radius: 4px;
+	padding: 4px 0 4px 5px;
+	width: 30%;
+	font-family: Helvetica, Arial, 'sans-serif';
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+input[type="text"].error, input[type="password"].error, input[type="date"].error, input[type="checkbox"].error, textarea.error, select.error {
+    outline: none;
+    border-color: #FFCCCC;
+    box-shadow: 0 0 10px #FFCCCC;
+}
+
+textarea {
+	height: 6em;
+	font-size: 0.9em;
+}
+
+/*	Form buttons	*/
+button, input[type="button"], input[type="submit"], input[type="reset"], a.button {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+	background: -moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background: -webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background: -o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background: -ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+	background-color: #ededed;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	cursor: pointer;
+	color: #777777;
+	font-family: Arial;
+	font-size: 0.7em;
+	font-weight: bold;
+	padding: 4px 15px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #ffffff;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+.button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, a.button:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+	background: -moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background: -webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background: -o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background: -ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+	background-color: #dfdfdf;
+}
+button:active, input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active, a.button:active {
+	position: relative;
+	top: 1px;
+}
+
+a.button {
+	margin-top: -10px;
+}
+
+/*	Plain text w/i forms	*/
+.field_label {
+	font-size: 0.7em;
+	margin-top: 10px;
+}
+
+.form_row {
+	clear: both;
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.form_row>div {
+	display: inline;
+	float: left;
+}
+
+.form_row>div:first-child {
+	font-size: 0.8em;
+	text-align: right;
+	margin: 5px 10px 0 0;
+	width: 33%;
+}
+
+.form_row>div:last-child {
+	font-size: 0.8em;
+	width: calc(100% - 33% - 10px);
+}
+
+.form_row>div:last-child>div {
+	display: inline-block;
+	margin-top: 5px;
+	width: 40%;
+}
+.required {
+	color: #FF0000;
+>>>>>>> origin/master
 }

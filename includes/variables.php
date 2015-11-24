@@ -8,4 +8,3 @@ $degreesA=array(
 	'Post-graduate certificate',
 	'Doctoral degree'
 );
-?>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 ?>			<footer><?php
@@ -5,4 +6,11 @@
 			?></footer>
 		</div>
 	</body>
+=======
+<?php
+
+?>
+		</div>
+	</body>
+>>>>>>> origin/master
 </html>
