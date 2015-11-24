@@ -1,6 +1,6 @@
 /*	Block Elements	*/
 body {
-	background-color: #DDD;
+	background-color: #FFF;
 	font-family: Helvetica, Arial, 'sans-serif';
 	font-size: 1em;
 }
@@ -15,6 +15,12 @@ a {
 }
 
 /*	Div list-style-position: */
+
+div.standard {
+	clear: both;
+	float: left;
+	width: 100%;
+}
 
 div.plainerror {
 	margin-top: 10px;
@@ -88,6 +94,13 @@ div.tag {
 
 .inactive { color: #888; }
 .inline { display: inline-block; }
+
+.clearleft { clear: left; }
+.clearboth { clear: both; }
+.clearright { clear: right; }
+
+.floatleft { float: left; }
+.floatright { float: right; }
 
 /*	Divs	*/
 .portalpane {

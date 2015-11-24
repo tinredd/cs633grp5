@@ -110,3 +110,32 @@ a.button {
 .required {
 	color: #FF0000;
 }
+
+div.formholder:first-child {
+	margin-left: 20%;
+}
+
+div.formholder {
+	border: 2px solid #005F8C;
+	width: 25%;
+	border-radius: 10px;
+	float: left;
+	margin: 50px 10% 0 0;
+	font-size:0.8em;
+}
+
+div.formholder>div {
+	padding: 15px;	
+}
+
+div.formholder>div:first-child {
+	background-color: #005F8C;
+	color: #FFF;
+	padding: 10px;
+	border-radius: 7px 7px 0 0;
+	margin-bottom: 20px;
+}
+
+.formholder input[type="text"], .formholder input[type="password"], .formholder input[type="date"], .formholder textarea, .formholder select {
+	width: 80%;
+}

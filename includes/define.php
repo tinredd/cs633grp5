@@ -1,5 +1,5 @@
 <?php
-define('TITLE','Title Here');
+define('TITLE','CareerHub');
 
 //	DB information
 define('DB_HOST','localhost');
