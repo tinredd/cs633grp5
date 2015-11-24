@@ -158,7 +158,7 @@ function actionform() {
 			<input name="submt" type="submit" value="Update" class="button" style="margin-top:-10px;" />
 		</div>
 		<div class="inline right" style="float:right;">
-			<a href="?action=add" class="button">+&nbsp;Add Employee</a>
+			<a href="?action=add" class="button">+&nbsp;Add Job</a>
 		</div>
 	</div>';
 
