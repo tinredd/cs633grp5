@@ -147,11 +147,16 @@ div.formholder>div:first-child {
 	width: 80%;
 }
 
-.specialselect {
+.specialselect, .specialselect-selected, .specialselectmult, .specialselectmult-selected {
 	font-family: Arial;
 	color: #777777;
 	text-transform: uppercase;
 	font-size: 0.7em;
 	font-weight: bold;
 	cursor: pointer;
+	width: 35%;
+}
+
+.specialselect-selected, .specialselectmult-selected {
+	color: #76B33C;
 }

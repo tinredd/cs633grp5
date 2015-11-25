@@ -10,6 +10,57 @@ function checkAll (field_name) {
 	checkFlag=!checkFlag;
 }
 
+function textCheck(prefix,value,multiple) {
+//	see if the value is currently in the list of already defined values
+	var added=false; 
+	var index=-1; 
+	var v, tmp_selector;
+	var classadd='';
+
+	var name=prefix;
+	if (multiple===undefined || multiple!==false) multiple=true;
+	if (multiple===true) {
+		name+='[]';
+		classadd='mult';
+	}
+
+	var selector='[name="'+name+'"]';
+
+	$.each($(selector),function () {
+		v=$(this).val();
+		if (v==value) {
+			index=$(this).index(selector);
+			added=true;
+		}
+	});
+
+//	if it is, remove it ad deactivate the item...
+	if (added) {
+		if (multiple) $(selector).eq(index).remove();
+		else $(selector).eq(index).val('');
+
+		if (multiple) tmp_selector='#'+prefix+'_'+value;
+		else tmp_selector='[id^="'+prefix+'_"]';
+
+		$(tmp_selector).removeClass('specialselect'+classadd+'-selected').addClass('specialselect'+classadd);
+	}
+//	if not, add it and activate the item
+	else {
+		$input=$('<input />');
+		$input.attr({
+			'name':name,
+			'type':'hidden'
+		}).val(value);
+		if (multiple) {
+
+		} else {
+			$(selector).remove();
+			$('[id^="'+prefix+'_"]:not(#'+prefix+'_'+value+')').removeClass('specialselect'+classadd+'-selected').addClass('specialselect'+classadd);
+		}
+		$('#'+prefix+'_'+value).addClass('specialselect'+classadd+'-selected').removeClass('specialselect'+classadd).before($input);
+	}
+}
+
 $(function () {
 //	Datepicker
 	$('input[type="date"]').datepicker({
@@ -18,8 +69,29 @@ $(function () {
 		yearRange: "1972:2020"
 	});
 
+//	Logo redirect
 	$(document).on('click','.logo',function () {
 		window.location.href='/index.php';
+	});
+
+//	Textcheckbox
+	$(document).on('click','.specialselectmult,.specialselectmult-selected',function() {
+		var id=$(this).attr('id');
+		var tmp=id.split('_');
+		var value=tmp.pop();
+		var prefix=tmp.join('_');
+
+		textCheck(prefix,value,true);
+	});
+
+//	Textcheckbox
+	$(document).on('click','.specialselect,.specialselect-selected',function() {
+		var id=$(this).attr('id');
+		var tmp=id.split('_');
+		var value=tmp.pop();
+		var prefix=tmp.join('_');
+
+		textCheck(prefix,value,false);
 	});
 
 //	Table sorting functionality
@@ -77,7 +149,7 @@ $(function () {
 
 			$newskillinput.autocomplete({
 				source: function (request,response) {
-					$.get('/listeners/json_skill.php', {
+					$.get('/listeners/add_emp_skill.php', {
 							letter: $newskillinput.val(),
 							entered: myentered
 						},
@@ -168,17 +240,17 @@ $(function () {
 					$newskill.remove();
 					var skillsA=new Array();
 					if ($skillname.hasClass('error')) $skillname.removeClass('error');
-					var url='/listeners/add_skill.php';
+					var url='/listeners/add_job_skill.php';
 
 					$.each($('[name="skill_id[]"]'), function () {
-						if ($(this).is(':checked')) skillsA.push($(this).val());
+						skillsA.push($(this).val());
 					});
 
 					$.ajax({
 						url: url,
 						data: { 
 							'skill_name': $skillname.val(),
-							'checked_skill_id[]': skillsA
+							'checked_skill_id': skillsA.join('|')
 						},
 						method: 'POST',
 						success: function (data) {

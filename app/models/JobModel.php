@@ -65,7 +65,7 @@ function getListing($postA) {
 
 	$andA=array();
 
-	$sql="SELECT U.*, GROUP_CONCAT(skill_name) AS skillset,O.office_name, 
+	$sql="SELECT *, GROUP_CONCAT(skill_name) AS skillset,O.office_name, 
 	CONCAT('$',FORMAT(salary,2)) AS salary, 
 	IF (U.status=1,'Active','Inactive') AS status 
 	FROM job U
@@ -75,17 +75,24 @@ function getListing($postA) {
 
 //	Compose filters...
 	if ($postA['office_id']>0) $andA[]="U.office_id=".$postA['office_id'];
-	if ($postA['skill_id']>0) $andA[]="E.skill_id= ".$postA['skill_id'];
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
+
+	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id=".$postA['skill_id'].")";
+	elseif (is_array($postA['skill_id']) && count($postA['skill_id'])>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id IN (".implode(',',$postA['skill_id'])."))";
+
+	if (is_array($postA['salary'])) $andA[]="salary BETWEEN {$postA['salary'][0]} AND {$postA['salary'][1]}";
+	if (is_array($postA['years_experience'])) $andA[]="years_experience BETWEEN {$postA['years_experience'][0]} AND {$postA['years_experience'][1]}";
 
 //	if there is at least one filter, add a 'WHERE' clause to the query
 	if (count($andA)>0) $sql.=" WHERE ".implode(' AND ',$andA);
-	$sql.=" GROUP BY U.job_id";
+	$sql.=" GROUP BY E.job_id";
 
 //	Use an ORDER BY if there is a 'sort' field	
 	if (strlen(trim($postA['sort']))>0) {
 		$sql.=" ORDER BY {$postA['sort']} $dir";
 	}
+
+	echo $sql;
 
 	$rs_row=$mysqli->query($sql);
 	while ($rs=$rs_row->fetch_assoc()) {

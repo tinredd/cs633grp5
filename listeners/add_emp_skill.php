@@ -1,4 +1,5 @@
 <?php
+//	Add a skill to an employee...
 include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
 
 $rowA=array();

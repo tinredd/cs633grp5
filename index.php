@@ -24,7 +24,7 @@ if ($_SESSION['employee_id']>0) {
     </div>
     <div>
         <div><a href="/employee.php">Employees</a></div>
-        <div><a href="/account.php?t=4">Add employee</a></div>
+        <div><a href="/employee.php?action=add">Add employee</a></div>
     </div>
 </div>
 <?php } ?>
@@ -34,8 +34,12 @@ if ($_SESSION['employee_id']>0) {
         <div class="inline">Jobs Management</div>
     </div>
     <div>
-        <?php if ($_SESSION['user_type']==1) echo '<div><a href="/job.php">Jobs</a></div>';?>
-        <div><a href="/jobsearch.php">Search jobs</a></div>
+        <?php 
+        if ($_SESSION['user_type']==1) {
+            echo '<div><a href="/job.php">Jobs</a></div>';
+            echo '<div><a href="/job.php?action=add">Add Job</a></div>';
+        }
+        ?><div><a href="/jobsearch.php">Search jobs</a></div>
     </div>
 </div>
 <?php

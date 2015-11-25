@@ -1,4 +1,41 @@
 <?php
+
+function js ($value1=0, $value2=0) {
+	$returnStr='';
+	if (!is_numeric($value1)) $value1=0;
+	if (!is_numeric($value2)) $value2=0;
+
+	$returnStr.='
+<script>
+$(function() {
+	$("#years_experience_slider").slider({
+		min: 0,
+		max: 25,
+		step: 0.5,
+		value: '.$value1.',
+		slide: function(event, ui) {
+			$("#years_experience").val(ui.value+" years");
+			$(\'[name="years_experience"]\').val(ui.value);
+		}
+	});
+	$("#years_experience").val($("#years_experience_slider").slider("values",0)+" years");
+	
+	$("#salary_slider").slider({
+		min: 5000,
+		max: 150000,
+		step: 500,
+		value: '.$value2.',
+		slide: function(event, ui) {
+			$("#salary").val("$"+ui.value);
+			$(\'[name="salary"]\').val(ui.value);
+		}
+	});
+	$("#salary").val("$"+$("#salary_slider").slider("values",0));
+});
+</script>';
+
+	return $returnStr;
+}
 function form($job_id=0,$errorStr='',$action='add') {
 	global $degreesA;
 
@@ -7,9 +44,10 @@ function form($job_id=0,$errorStr='',$action='add') {
 	if (count($errorsA)>0) $returnStr.='<div class="error">Please correct the errors in the highlighted fields</div>';
 
 	$row=getJob($job_id);
+	$returnStr.=js($row['years_experience'],$row['salary']);
 	$returnStr.='
 	<form name="account" action="" method="post">
-	<input name="action" value="'.$action.';2" type="hidden" />
+	<input name="action" value="'.$action.'2" type="hidden" />
 	<input name="job_id" value="'.$job_id.'" type="hidden" />
 
 	<div class="form_row">
@@ -23,59 +61,54 @@ function form($job_id=0,$errorStr='',$action='add') {
 
 	<div class="form_row">
 		<div><span class="required">*</span> Degree:</div>
-		<div>
-			<select name="degree"';
-	if (in_array('degree',$errorsA)) $returnStr.=' class="error"';
-	$returnStr.='>';
-	foreach ($degreesA as $value) {
-		$returnStr.='<option value="'.$value.'"';
-		if ($value==$row['degree']) $returnStr.=' selected';
-		$returnStr.='>'.$value.'</option>';
+		<div>';
+
+	$returnStr.='<input name="degree" type="hidden" value="'.$row['degree'].'" />';
+	foreach ($degreesA as $key=>$value) {
+
+		$returnStr.='<div class="inline specialselect';
+		if ($row['degree']==$key)  $returnStr.='-selected';
+		$returnStr.='" id="degree_'.$key.'">'.stripslashes($value).'</div>';
 	}
 
 	$returnStr.='
-			</select>
 		</div>
 	</div>
 
 	<div class="form_row">
 		<div>Salary:</div>
-		<div><input name="salary" type="text" value="'.stripslashes($row['salary']).'"';
-	if (in_array('salary',$errorsA)) $returnStr.=' class="error"';
-	$returnStr.=' /></div>
+		<div>
+			<div class="standard">
+				<input type="text" id="salary" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+				<input type="hidden" name="salary" value="'.$row['salary'].'" />
+			</div>
+			<div class="standard" id="salary_slider"></div>
+		</div>
 	</div>
 
 	<div class="form_row">
 		<div><span class="required">*</span> Office location:</div>
-		<div>
-			<select name="office_id"';
-	if (in_array('office_id',$errorsA)) $returnStr.=' class="error"';
-	$returnStr.='>';
+		<div>';
 
+	$returnStr.='<input name="office_id" type="hidden" value="'.$row['office_id'].'" />';
 	foreach (getOffices() as $office) {
-		$returnStr.='<option value="'.$office['office_id'].'"';
-		if ($office['office_id']==$row['office_id']) $returnStr.=' selected';
-		$returnStr.='>'.stripslashes($office['office_name']).'</option>';
+
+		$returnStr.='<div class="inline specialselect';
+		if ($office['office_id']==$row['office_id'])  $returnStr.='-selected';
+		$returnStr.='" id="office_id_'.$office['office_id'].'">'.stripslashes($office['office_name']).'</div>';
 	}
 	$returnStr.='
-			</select>
 		</div>
 	</div>
 
 	<div class="form_row">
 		<div><span class="required">*</span> Years experience:</div>
 		<div>
-			<select name="years_experience"';
-	if (in_array('years_experience',$errorsA)) $returnStr.=' class="error"';
-	$returnStr.='>';
-
-	for ($i=0; $i<=20; $i+=0.5) {
-		$returnStr.='<option value="'.$i.'"';
-		if ($i==$row['years_experience']) $returnStr.=' selected';
-		$returnStr.='>'.$i.'</option>';
-	}
-	$returnStr.='
-			</select>
+			<div class="standard">
+				<input type="text" id="years_experience" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+				<input type="hidden" name="years_experience" value="'.$row['years_experience'].'" />
+			</div>
+			<div class="standard" id="years_experience_slider"></div>
 		</div>
 	</div>
 
@@ -90,28 +123,18 @@ function form($job_id=0,$errorStr='',$action='add') {
 	<div class="form_row">
 		<div>Skills:</div>
 		<div>
-			<div>
-				<div id="skillcheckblock">
-					<div style="width:100%;" id="allskills">
-						<div style="width:100%;">';
+			<div id="skillcheckblock">
+				<div class="standard" id="allskills">';
 
+	foreach (explode(',',$row['skillids']) as $skill_id) $returnStr.='<input name="skill_id[]" type="hidden" value="'.$skill_id.'" />';
 	foreach (getSkills() as $i=>$skill) {
-		if ($i%3==2) $returnStr.='</div><div style="width:100%;">';
 
-		$returnStr.='
-		<div style="display:inline-block; width:33%;">
-			<label>
-				<input name="skill_id[]" type="checkbox" value="'.$skill['skill_id'].'"';
-			if (in_array('skill_id',$errorsA)) $returnStr.=' class="error"';
-			if (in_array($skill['skill_id'],explode(',',$row['skillids']))) $returnStr.=' checked';
-			$returnStr.=' />&nbsp;'.stripslashes($skill['skill_name']).'
-			</label>
-		</div>';
+		$returnStr.='<div class="inline specialselectmult';
+		if (in_array($skill['skill_id'],explode(',',$row['skillids'])))  $returnStr.='-selected';
+		$returnStr.='" id="skill_id_'.$skill['skill_id'].'">'.stripslashes($skill['skill_name']).'</div>';
 	}
 
 	$returnStr.='
-						</div>
-					</div>
 				</div>
 
 				<div id="skillfields"></div>
@@ -176,7 +199,7 @@ function filterform($postA,$dir) {
 	<div class="filterbox">
 		<div>
 			<div>Title:</div>
-			<div><input name="job_title" type="text" /></div>
+			<div><input name="job_title" type="text" value="'.stripslashes($postA['job_title']).'" /></div>
 		</div>
 
 		<div>

@@ -37,17 +37,16 @@ function form($employee_id=0,$errorStr='',$action='add') {
 
 	<div class="form_row">
 		<div><span class="required">*</span> Office location:</div>
-		<div>
-			<select name="office_id"';
-	if (in_array('office_id',$errorsA)) $returnStr.=' class="error"';
-	$returnStr.='>';
-			foreach (getOffices() as $office) {
-				$returnStr.='<option value="'.$office['office_id'].'"';
-				if ($office['office_id']==$row['office_id']) $returnStr.=' selected';
-				$returnStr.='>'.stripslashes($office['office_name']).'</option>';
-			}
-	$returnStr.='
-			</select>
+		<div>';
+	$returnStr.='<input name="office_id" type="hidden" value="'.$row['office_id'].'" />';
+	foreach (getOffices() as $office) {
+
+		$returnStr.='<div class="inline specialselect';
+		if ($office['office_id']==$row['office_id'])  $returnStr.='-selected';
+		$returnStr.='" id="office_id_'.$office['office_id'].'">'.stripslashes($office['office_name']).'</div>';
+	}
+	$returnStr.=
+	'
 		</div>
 	</div>
 

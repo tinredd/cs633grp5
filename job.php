@@ -2,7 +2,7 @@
 $includes=false;
 include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
 
-$action=(isset($_REQUEST['action'])) ? $_REQUEST['action'] : null;
+$action=(isset($_REQUEST['action']))?$_REQUEST['action']:null;
 
 if (strlen(trim($postA['dir']))>0) $dir=$postA['dir'];
 else $dir='ASC';
@@ -10,7 +10,6 @@ else $dir='ASC';
 //	Contains all of the basic functions...
 include($_SERVER['DOCUMENT_ROOT'].'/app/models/JobModel.php');
 include($_SERVER['DOCUMENT_ROOT'].'/app/controllers/JobController.php');
-include($_SERVER['DOCUMENT_ROOT'].'/app/views/JobView.php');
 
 if ($_REQUEST['action']=='add') $title="Add a Job";
 elseif ($_REQUEST['action']=='modify') $title="Update Job";
@@ -19,6 +18,7 @@ else $title="List Jobs";
 if (in_array($_REQUEST['action'],array('add','modify'))) $bcA['/job.php']='List Jobs';
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+include($_SERVER['DOCUMENT_ROOT'].'/app/views/JobView.php');
 
 $columns=array(
 'job_title'=>'Job title',

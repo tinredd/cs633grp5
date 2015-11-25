@@ -1,6 +1,6 @@
 <?php
 $degreesA=array(
-	'High school diploma',
+	1=>'High school diploma',
 	'Associate\'s degree',
 	'Technical certificate',
 	'Bachelor\'s degree',
