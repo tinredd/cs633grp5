@@ -22,7 +22,7 @@
     <div>Email:</div>
     <div>
         <div><a href="mailto:<?=$emp['email_address'];?>"><?=$emp['email_address'];?></a></div>
-        <div><a href="javascript:void(0)" class="button" onClick="alert('This does nothing yet. Must code it!');">Contact this employee</a></div>
+        <div><a href="mailto:<?=$emp['email_address'];?>" class="button">Contact this employee</a></div>
     </div>
 </div>
 

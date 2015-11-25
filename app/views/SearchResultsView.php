@@ -93,7 +93,7 @@
     </div>
 </div>
 <?php
-    if ($rank<count($empA)-1) echo '
+    if ($rank<count($jobA)-1) echo '
         <div class="form_row" style="margin:10px 25%; width:50%; border-bottom:dotted 1px #AAA;">
         </div>';
     }
