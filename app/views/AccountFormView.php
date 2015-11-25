@@ -65,13 +65,12 @@
 	</div>
 
 	<div class="form_row">
-		<div>Contact preferences:</div>
+		<div>Hire date:</div>
 		<div>
-			<input name="hr_contact" value="<?=$_SESSION['hr_contact'];?>" type="hidden" />
-			<input name="employee_contact" value="<?=$_SESSION['employee_contact'];?>" type="hidden" />
-
-			<div class="specialselect<?php if ($_SESSION['hr_contact']==1) echo '-selected';?> standard" id="hr_contact_1">Allow HR to contact me about jobs</div>
-			<div class="specialselect<?php if ($_SESSION['employee_contact']==1) echo '-selected';?> standard" id="employee_contact_1">Allow other employees to contact me</div>
+			<div><?php if (strtotime($_SESSION['hire_date'])) echo date('n/j/Y', strtotime($_SESSION['hire_date']));
+			else echo '<span class="italic inactive">(no date entered)</span>';
+			?></div>
+			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('hire_date'));?>" class="button">Contact HR for updates</a></div>
 		</div>
 	</div>
 
@@ -84,6 +83,17 @@
 	</div>
 
 	<div class="form_row">
+		<div>Contact preferences:</div>
+		<div>
+			<input name="hr_contact" value="<?=$_SESSION['hr_contact'];?>" type="hidden" />
+			<input name="employee_contact" value="<?=$_SESSION['employee_contact'];?>" type="hidden" />
+
+			<div class="specialselect<?php if ($_SESSION['hr_contact']==1) echo '-selected';?> standard" id="hr_contact_1">Allow HR to contact me about jobs</div>
+			<div class="specialselect<?php if ($_SESSION['employee_contact']==1) echo '-selected';?> standard" id="employee_contact_1">Allow other employees to contact me</div>
+		</div>
+	</div>
+
+	<div class="form_row">
 		<div>Office phone:</div>
 		<div><input name="office_phone" type="text" value="<?=stripslashes($_SESSION['office_phone']);?>" /></div>
 	</div>
@@ -91,16 +101,6 @@
 	<div class="form_row">
 		<div>Job title:</div>
 		<div><input name="job_title" type="text" value="<?=stripslashes($_SESSION['job_title']);?>" /></div>
-	</div>
-
-	<div class="form_row">
-		<div>Hire date:</div>
-		<div>
-			<div><?php if (strtotime($_SESSION['hire_date'])) echo date('n/j/Y', strtotime($_SESSION['hire_date']));
-			else echo '<span class="italic inactive">(no date entered)</span>';
-			?></div>
-			<div><a href="?t=3&amp;f=<?=urlencode(base64_encode('hire_date'));?>" class="button">Contact HR for updates</a></div>
-		</div>
 	</div>
 
 	<div class="form_row">
