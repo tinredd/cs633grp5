@@ -28,3 +28,27 @@ function getJob ($job_id) {
 
 	return $mysqli->fetch_row($sql);
 }
+
+function pagination ($postA) {
+	$returnStr='';
+
+	$ppp=(isset($postA['ppp']) && $postA['ppp']>0) ? $postA['ppp'] : 0;
+	$pg=(isset($postA['pg']) && $postA['pg']>1) ? $postA['pg'] : 1;
+
+	$total=count(getListing($postA));
+
+	if ($ppp>0) $numpages=ceil($total/$ppp);
+	else $numpages=1;
+
+	$returnStr.='<div class="standard pagination">';
+	for ($i=1; $i<=$numpages; $i++) {
+		if ($i!=$pg) $returnStr.='
+		<div class="pagenumber">
+			<a href="javascript:void(0)" class="page">'.$i.'</a>
+		</div>';
+		else $returnStr.='<div class="pagenumber">'.$i.'</div>';
+	}
+	$returnStr.='</div>';
+
+	return $returnStr;
+}

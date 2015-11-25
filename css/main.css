@@ -74,7 +74,7 @@ div.filterbox {
 
 div.filterbox>div {
 	display: inline-block;
-	width: 18%;
+	width: 15%;
 }
 
 div.filterbox>div select,div.filterbox>div input[type="text"] {
@@ -167,3 +167,19 @@ div.tag {
 	margin-bottom: 0.5em;
 	padding-left: 2em;
 }
+
+/*	Pagination Divs	*/
+
+.pagination {
+
+}
+.pagenumber {
+	display: inline-block;
+	width: auto;
+	font-size: 0.8em;
+}
+.pagenumber a {
+	width: 20px;
+	height: 20px;
+}
+.

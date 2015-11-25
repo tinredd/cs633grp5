@@ -42,11 +42,16 @@ function isContact($email='') {
 
 //	*******************************************
 //	Get a listing of employees
-function getListing($postA) {
+function getListing($postA,$allFlag=1) {
 	global $mysqli,$dir;
 
 	$results=array();
 	list($startDate,$endDate)=getDates($postA);
+
+	$ppp=(isset($postA['ppp']) && $postA['ppp']>0) ? $postA['ppp'] : 0;
+	$pg=(isset($postA['pg']) && $postA['pg']>1) ? $postA['pg'] : 1;
+	$start=($pg-1)*$ppp;
+	$end=$start+($ppp-1);
 
 	$andA=array();
 
@@ -72,6 +77,8 @@ function getListing($postA) {
 	if (strlen(trim($postA['sort']))>0) {
 		$sql.=" ORDER BY {$postA['sort']} $dir";
 	}
+
+	if ($ppp>0 && $allFlag==0) $sql.=" LIMIT $start,$ppp";
 
 	$rs_row=$mysqli->query($sql);
 	while ($rs=$rs_row->fetch_assoc()) {

@@ -48,6 +48,9 @@ function getListing($postA) {
 	$results=array();
 	list($startDate,$endDate)=getDates($postA);
 
+	$ppp=(isset($postA['ppp'])) ? $postA['ppp'] : 0;
+	$pg=(isset($postA['pg'])) ? $postA['pg'] : 1;
+
 	$andA=array();
 
 	$sql="SELECT *,GROUP_CONCAT(skill_name) AS skillset,GROUP_CONCAT(E.skill_id) AS skillids,O.office_name,O.contact_name, O.contact_email,

@@ -69,6 +69,14 @@ $(function () {
 		yearRange: "1972:2020"
 	});
 
+//	Pagination
+	$(document).on('click','.page',function () {
+		$('[name="pg"]').val($(this).text());
+		$('[name="action"]').val('');
+
+		$(this).parents('form').eq(0).submit();
+	});
+
 //	Logo redirect
 	$(document).on('click','.logo',function () {
 		window.location.href='/index.php';

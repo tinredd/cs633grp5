@@ -210,6 +210,22 @@ function filterform($postA,$dir) {
 		</div>
 
 		<div>
+			<div class="filterlabel">Results per page</div>
+			<div>
+				<select name="ppp">
+					<option value="0"'.(($postA['ppp']==0)?' selected':'').'>(all results)</option>
+					<option value="1"'.(($postA['ppp']==1)?' selected':'').'>1</option>
+					<option value="2"'.(($postA['ppp']==2)?' selected':'').'>2</option>
+					<option value="5"'.(($postA['ppp']==5)?' selected':'').'>5</option>
+					<option value="10"'.(($postA['ppp']==10)?' selected':'').'>10</option>
+					<option value="20"'.(($postA['ppp']==20)?' selected':'').'>20</option>
+					<option value="25"'.(($postA['ppp']==25)?' selected':'').'>25</option>
+					<option value="50"'.(($postA['ppp']==50)?' selected':'').'>50</option>
+				</select>
+			</div>
+		</div>
+
+		<div>
 			<input name="submt" type="submit" value="Search" />
 		</div>
 	</div>
@@ -224,12 +240,32 @@ function tabularize($postA,$dir,$columns=array()) {
 	$returnStr='';
 	$returnStr.=filterform($postA,$dir);
 
+	$pg=(isset($postA['pg']) && $postA['pg']>1) ? $postA['pg'] : 1;
+	$ppp=(isset($postA['ppp']) && $postA['ppp']>0) ? $postA['ppp'] : 0;
+	$start=($pg-1)*$ppp + 1;
+	$end=$start+($ppp-1);
+
+	if ($end>count(getListing($postA))) $end=count(getListing($postA));
+	if ($end==0) $end=count(getListing($postA));
+
 	$returnStr.='
 
-<form name="generic" action="" method="POST">
+<form name="generic" action="" method="POST">';
+	foreach ($postA as $key=>$value) {
+		if (is_array($value)) {
+			foreach ($value as $v) $returnStr.='<input name="'.$key.'[]" type="hidden" value="'.$v.'" />';
+		} else {
+			$returnStr.='<input name="'.$key.'" type="hidden" value="'.$value.'" />';
+		}
+	}
+	$returnStr.='<input name="pg" type="hidden" value="'.$pg.'" />';
+
+	$returnStr.='
 	<table>
 		<tr>
-			<th class="label" colspan="'.(count($columns)+1).'">All Employees ('.count(getListing($postA)).')</th>
+			<th class="label" colspan="'.(count($columns)+1).'">Employees '.$start;
+			if ($start!=$end) $returnStr.=' - '.$end;
+			$returnStr.=' of '.count(getListing($postA)).'</th>
 		</tr>
 		<tr>
 			<th><a href="javascript:checkAll(\'employee_id[]\')">Select</a></th>';
@@ -253,7 +289,7 @@ function tabularize($postA,$dir,$columns=array()) {
 		</tr>';
 	}
 
-	foreach (getListing($postA) as $employee_id=>$row) {
+	foreach (getListing($postA,0) as $employee_id=>$row) {
 		$returnStr.='<tr';
 		if ($row['status']=='Inactive') $returnStr.=' class="inactive"';
 		$returnStr.='>';
@@ -279,6 +315,7 @@ function tabularize($postA,$dir,$columns=array()) {
 	$returnStr.='
 		</tbody>
 	</table>';
+	$returnStr.=pagination($postA,$postA['ppp']);
 	$returnStr.=actionform();
 	$returnStr.='
 </form>';
