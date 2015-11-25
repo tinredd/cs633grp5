@@ -6,21 +6,6 @@ function listErrors($str) {
 	if (!is_array($errorsA)) $errorsA=array();
 }
 
-function getJob ($job_id) {
-	global $mysqli;
-
-	$sql="SELECT U.*,GROUP_CONCAT(S.skill_name) AS skillset,
-	GROUP_CONCAT(S.skill_id) AS skillids 
-	FROM job U 
-	LEFT JOIN job_skill E ON E.job_id=U.job_id 
-	LEFT JOIN skill S ON S.skill_id=E.skill_id 
-	WHERE U.job_id=$job_id 
-	GROUP BY E.job_id
-	ORDER BY S.skill_name";
-
-	return $mysqli->fetch_row($sql);
-}
-
 function getOffices() {
 	global $mysqli;
 
@@ -65,7 +50,7 @@ function getListing($postA) {
 
 	$andA=array();
 
-	$sql="SELECT *, GROUP_CONCAT(skill_name) AS skillset,O.office_name, 
+	$sql="SELECT *,GROUP_CONCAT(skill_name) AS skillset,GROUP_CONCAT(E.skill_id) AS skillids,O.office_name,O.contact_name, O.contact_email,
 	CONCAT('$',FORMAT(salary,2)) AS salary, 
 	IF (U.status=1,'Active','Inactive') AS status 
 	FROM job U
@@ -75,6 +60,7 @@ function getListing($postA) {
 
 //	Compose filters...
 	if ($postA['office_id']>0) $andA[]="U.office_id=".$postA['office_id'];
+	if (strlen(trim($postA['status']))>0) $andA[]="U.status=".$postA['status'];
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 
 	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id=".$postA['skill_id'].")";
@@ -91,8 +77,6 @@ function getListing($postA) {
 	if (strlen(trim($postA['sort']))>0) {
 		$sql.=" ORDER BY {$postA['sort']} $dir";
 	}
-
-	echo $sql;
 
 	$rs_row=$mysqli->query($sql);
 	while ($rs=$rs_row->fetch_assoc()) {

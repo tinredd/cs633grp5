@@ -8,6 +8,7 @@ if (strlen(trim($postA['dir']))>0) $dir=$postA['dir'];
 else $dir='ASC';
 
 //	Contains all of the basic functions...
+include($_SERVER['DOCUMENT_ROOT'].'/app/models/Model.php');
 include($_SERVER['DOCUMENT_ROOT'].'/app/models/EmployeeModel.php');
 include($_SERVER['DOCUMENT_ROOT'].'/app/controllers/EmployeeController.php');
 include($_SERVER['DOCUMENT_ROOT'].'/app/views/EmployeeView.php');

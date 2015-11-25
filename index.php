@@ -37,7 +37,7 @@ if ($_SESSION['employee_id']>0) {
         <?php 
         if ($_SESSION['user_type']==1) {
             echo '<div><a href="/job.php">Jobs</a></div>';
-            echo '<div><a href="/job.php?action=add">Add Job</a></div>';
+            echo '<div><a href="/job.php?action=add">Add job</a></div>';
         }
         ?><div><a href="/jobsearch.php">Search jobs</a></div>
     </div>

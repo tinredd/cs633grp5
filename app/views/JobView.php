@@ -283,6 +283,8 @@ function tabularize($postA,$dir,$columns=array()) {
 		$returnStr.='</a>
 		</th>';
 	}
+	$returnStr.='
+			<th>Action(s):</th>';
 
 	$returnStr.='
 	</tr>
@@ -312,6 +314,10 @@ function tabularize($postA,$dir,$columns=array()) {
 			$returnStr.='</td>';
 
 			$key++;
+		}
+		if ($row['status']=='Active') {
+			$returnStr.='
+			<td class="center"><a href="/match.php?job_id='.$job_id.'" class="button">Match Employees</a></td>';
 		}
 
 			$returnStr.='

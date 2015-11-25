@@ -6,7 +6,7 @@ if (in_array($action,array('add2','modify2'))) {
 //	Get errors (no error checking necessary)...
 	if (strlen(trim($_POST['job_title']))==0) $errorsA[]='job_title';
 	if (!($_POST['office_id']>0)) $errorsA[]='office_id';
-	if (strlen(trim($_POST['salary']))==0 && !is_numeric($_POST['salary'])) $errorsA[]='salary';
+	if (strlen(trim($_POST['salary']))>0 && !is_numeric($_POST['salary'])) $errorsA[]='salary';
 	if (count($_POST['skill_id'])==0) $errorsA[]='skill_id';
 
 	if (count($errorsA)>0) {
@@ -23,13 +23,11 @@ if (in_array($action,array('add2','modify2'))) {
 		$fieldsA['office_id']=$_POST['office_id'];
 		$fieldsA['status']=$_POST['status'];
 		$fieldsA['years_experience']=$_POST['years_experience'];
-		$fieldsA['salary']="'".addslashes(strip_tags($_POST['salary']))."'";
-		$fieldsA['degree']="'".addslashes(strip_tags($_POST['degree']))."'";
+		$fieldsA['salary']=$_POST['salary'];
+		$fieldsA['degree']=$_POST['degree'];
 		$fieldsA['notes']="'".addslashes(strip_tags($_POST['notes']))."'";
 
 	//	Update DB record...
-		$updatesA=array();
-		foreach ($fieldsA as $key=>$value) $updatesA[]="$key='".$value."'";
 
 		if ($action=='add2') $job_id=$mysqli->insert('job',$fieldsA);
 		elseif ($action=='modify2') {

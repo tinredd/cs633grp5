@@ -1,18 +1,120 @@
 <?php
-$includes=false;
-include_once($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
+$title='Job Search';
+include_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+
+
+include($_SERVER['DOCUMENT_ROOT'].'/app/models/Model.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/app/models/JobModel.php');
+
+$empl=getEmployee($_SESSION['employee_id']);
 
 $action=(isset($_REQUEST['action']))?$_REQUEST['action']:null;
 if ($action=='employeesearch2') {
 	$jobsA=getListing($_POST);
 
-//	echo $sql;
-	exit();
-}
+	$jobA=array();
+	foreach ($jobsA as $job) {
+		$points=0;
+		if ($job['office_id']==$empl['office_id']) $points++;
+		$commonskillset=array_intersect(explode(',',$empl['skillids']),explode(',',$job['skillids']));
+		$points+=count($commonskillset);
 
-$title='Job Search';
-include_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+		if ((count(explode(',',$job['skillids']))==0 || count($commonskillset)>0) && $job['office_id']==$empl['office_id']) $points++;
+
+		$pointsA[]=$points;
+		$salaryA[]=$job['salary'];
+		$degreeA[]=$job['degree'];
+		$yearsA[]=$job['years_experience'];
+
+		$jobA[$job['job_id']]=$job;
+		$jobA[$job['job_id']]['skillids']=explode(',',$job['skillids']);
+		$jobA[$job['job_id']]['skillset']=explode(',',$job['skillset']);
+		$jobA[$job['job_id']]['points']=$points;
+
+	}
+
+	array_multisort($pointsA,SORT_DESC,$salaryA,SORT_DESC,$yearsA,SORT_ASC,$degreeA,SORT_ASC,$jobA);
+?>
+<div class="section_title">Matching jobs <span class="bold">(<?=count($jobA);?> result<?php if (count($jobA)!=1) echo 's';?>)</span></div>
+
+<?php
+	foreach ($jobA as $rank=>$row) {
+?>
+<div class="form_row">
+    <div>Ranking:</div>
+    <div>
+        <div>#<?=($rank+1);?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Job title:</div>
+    <div>
+        <div><?=stripslashes($row['job_title']);?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Office name:</div>
+    <div>
+        <div><?=stripslashes($row['office_name'].' - '.$row['office_id'].' ('.$row['city'].', '.$row['state'].')');?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Office contact:</div>
+    <div>
+		<div><?=stripslashes($row['contact_name']);?></div>
+		<div><a href="mailto:<?=$row['contact_email'];?>" class="button">Contact HR Department</a></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Salary:</div>
+    <div>
+        <div><?php;
+        if (strlen($row['salary'])>0) echo $row['salary'];
+        else echo '<span class="inactive italic">(none defined)</span>';
+        ?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Experience required:</div>
+    <div>
+        <div><?php
+        if (strlen(trim($row['years_experience']))>0) echo round($row['years_experience'],1).' years';
+        else echo '<span class="inactive italic">(none defined)</span>';
+        ?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Education required:</div>
+    <div>
+        <div><?php
+        if (strlen(trim($row['degree']))>0) echo stripslashes($row['degree']);
+        else echo '<span class="inactive italic">(none defined)</span>';
+        ?></div>
+    </div>
+</div>
+
+<div class="form_row">
+    <div>Skill(s):</div>
+    <div>
+        <div><?php
+        if (count($row['skillset'])>0) echo stripslashes(implode(', ',$row['skillset']));
+        else echo '<span class="inactive italic">(none defined)</span>';
+        ?></div>
+    </div>
+</div>
+<?php
+	}
+    if ($rank<count($empA)-1) echo '
+        <div class="form_row" style="margin:10px 25%; width:50%; border-bottom:dotted 1px #AAA;">
+        </div>';
+
+} elseif (is_null($action)) {
 
 ?>  
 <script>
@@ -48,10 +150,11 @@ $(function() {
 });
 </script>
 
-<div>Welcome to the job search page! Please use the filters below to see a list of internal jobs.</div>
+<div>Welcome to the job search page! Please use the filters below to see a list of internal jobs. Your skills and location are pre-selected.</div>
 
 <form name="generic" action="" method="POST" style="margin-top:20px;">
 	<input name="action" type="hidden" value="employeesearch2" />
+	<input name="status" type="hidden" value="1" />
 	<div class="form_row">
 		<div>Title:</div>
 		<div><input name="title" value="" type="text" /></div>
@@ -60,8 +163,11 @@ $(function() {
 	<div class="form_row">
 		<div>Office location:</div>
 		<div><?php
+		echo '<input name="office_id" value="'.$empl['office_id'].'" type="hidden" />';
 		foreach (getOffices() as $row) {
-			echo '<div class="inline specialselectmult" id="office_id_'.$row['office_id'].'">'.stripslashes($row['office_name']).'</div>';
+			echo '<div class="inline specialselectmult';
+			if ($row['office_id']==$empl['office_id']) echo '-selected';
+			echo '" id="office_id_'.$row['office_id'].'">'.stripslashes($row['office_name']).'</div>';
 		}
 		?></div>
 	</div>
@@ -102,8 +208,13 @@ $(function() {
 	<div class="form_row">
 		<div>Skill(s):</div>
 		<div><?php
+		foreach (explode(',',$empl['skillids']) as $skill_id) {
+			echo '<input name="skill_id[]" value="'.$skill_id.'" type="hidden" />';
+		}
 		foreach (getSkills() as $row) {
-			echo '<div class="inline specialselectmult" id="skill_id_'.$row['skill_id'].'">'.stripslashes($row['skill_name']).'</div>';
+			echo '<div class="inline specialselectmult';
+			if (in_array($row['skill_id'],explode(',',$empl['skillids']))) echo '-selected';
+			echo '" id="skill_id_'.$row['skill_id'].'">'.stripslashes($row['skill_name']).'</div>';
 		}
 		?></div>
 	</div>
@@ -114,4 +225,5 @@ $(function() {
 	</div>
 </form>
 <?php
+}
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
