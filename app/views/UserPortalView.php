@@ -18,7 +18,7 @@
     </div>
     <div>Add or modify employee accounts</div>
     <ul>
-        <li><a href="/employee.php">Employees</a></li>
+        <li><a href="/employee.php">Employees list</a></li>
         <li><a href="/employee.php?action=add">Add employee</a></li>
     </ul>
 </div>
@@ -33,7 +33,7 @@
     <ul>
         <?php 
         if ($_SESSION['user_type']==1) {
-            echo '<li><a href="/job.php">Jobs</a></li>';
+            echo '<li><a href="/job.php">Jobs list</a></li>';
             echo '<li><a href="/job.php?action=add">Add job</a></li>';
         }
         ?><li><a href="/jobsearch.php">Search available jobs</a></li>

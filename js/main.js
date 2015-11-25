@@ -215,14 +215,18 @@ $(function () {
 		if ($('.newskill').length==0) {
 			$newskillform=$('<div></div>');
 			$newskillform.css({
-				'margin-top':'2px'
-			}).attr('class','newskill');
+				'float': 'left',
+				'width': '100%',
+				'margin-top': '10px'
+			}).addClass('newskill');
 
 			$newskilllabel=$('<div></div>');
 			if ($('.newskill').length==0) {
 				$newskilllabel.html('Skill name').css({
-					'font-size':'0.8em',
-					'margin-top':'10px'
+					'font-size': '0.7em',
+					'text-transform': 'uppercase',
+					'color': '#005F8C',
+					'font-weight': 'bold'
 				});
 			}
 
