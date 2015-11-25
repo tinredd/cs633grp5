@@ -29,25 +29,26 @@ if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 
 	<body>
 		<div class="logo"></div>
+		<?php if ($_SESSION['employee_id']>0) { ?>
 		<div class="topbar">
 		<?php 
-			if ($_SESSION['employee_id']>0) {
-				echo '<div class="logout">
-				Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;|&nbsp;<a href="/account.php">My Account</a>&nbsp;|&nbsp;
-				<a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a>
-				</div>';
-			}?>
+			echo '<div class="logout">
+			Hello <span class="bold">'.stripslashes($_SESSION['first_name']).'</span>! &nbsp;&nbsp;<a href="/account.php">My Account</a>&nbsp;&nbsp;
+			<a href="/process/logout.php" onclick="return confirm(\'Are you sure you wish to log out?\');">Logout</a>
+			</div>';
+		?>
 			<div class="breadcrumbs">
-				<?php 
+		<?php 
 			//	Add the "Home" breadcrumb if we are not on the home page...
-				if ($url!='/index.php') echo '<div style="display:inline-block;"><a href="/index.php">Home</a></div>';
+				if ($url!='/index.php') echo '<div class="bc"><a href="/index.php">Home</a></div>';
 
 			//	Adding breadcrumbs
 				if (isset($bcA) && is_array($bcA)) {
-					foreach ($bcA as $urlStr=>$text) echo '<div style="display:inline-block;">&nbsp;&raquo;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
+					foreach ($bcA as $urlStr=>$text) echo '<div class="bc">&nbsp;&raquo;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
 				}
-				if (strlen(trim($title))>0) echo '<div style="display:inline-block;" class="bold">&nbsp;&raquo;&nbsp;'.stripslashes($title).'</div>';
-				?>
+				if (strlen(trim($title))>0) echo '<div class="bc bold">&nbsp;&raquo;&nbsp;<span>'.stripslashes($title).'</span></div>';
+		?>
 			</div>
 		</div>
+		<?php } ?>
 		<div class="container">

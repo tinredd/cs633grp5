@@ -1,13 +1,31 @@
 /*	Breadcrumbs	*/
 div.topbar {
-	margin-bottom: 30px;
-	font-size: 0.8em;
-	width: 98%;
+	margin: 3em 0 2em 0;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #FFF;
+	background-color: #AAA;
+	padding: 1em 2em;
+	position: relative;
+	left: calc(-1em + 3px);
+	width: calc(100% + 2em - 6px);
+}
+
+div.topbar a {
+	text-decoration: none;
 }
 
 div.breadcrumbs {
 	display: inline-block;
 	width: 49%;
+}
+
+div.bc {
+	display: inline-block;
+}
+
+div.bc span {
+	color: #FFF;
 }
 
 /*	Tabs navigation	*/

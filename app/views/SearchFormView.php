@@ -31,7 +31,7 @@ $(function() {
 });
 </script>
 
-<div>Welcome to the job search page! Please use the filters below to see a list of internal jobs. Your skills and location are pre-selected.</div>
+<div class="standard">Welcome to the job search page! Please use the filters below to see a list of internal jobs. Your skills and location are pre-selected.</div>
 
 <form name="generic" action="" method="POST" style="margin-top:20px;">
 	<input name="action" type="hidden" value="employeesearch2" />
@@ -100,7 +100,7 @@ $(function() {
 		?></div>
 	</div>
 
-	<div class="form_row">
+	<div class="form_row" style="margin-top:0.5em;">
 		<div>&nbsp;</div>
 		<div><a href="javascript:void(0)" onClick="$(this).parents('form').eq(0).submit();" class="button"><img src="/images/icons/go_search.png" alt="S"/>Search</a></div>
 	</div>

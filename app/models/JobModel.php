@@ -73,8 +73,15 @@ function getListing($postA) {
 		foreach ($postA['office_id'] as $office_id) if ($office_id>0) $officeA[]=$office_id;
 	}
 
+	$degreeA=array();
+	if (!is_array($postA['degree']) && $postA['degree']>0) $degreeA[]=$postA['degree'];
+	if (is_array($postA['degree']) && count($postA['degree'])>0) {
+		foreach ($postA['degree'] as $degree) if ($degree>0) $degreeA[]=$degree;
+	}
+
 //	Compose filters...
 	if (count($officeA)>0) $andA[]="U.office_id IN(".implode(',',$officeA).")";
+	if (count($degreeA)>0) $andA[]="U.degree IN(".implode(',',$degreeA).")";
 	if (strlen(trim($postA['status']))>0) $andA[]="U.status=".$postA['status'];
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 
