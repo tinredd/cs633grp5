@@ -89,7 +89,8 @@ Update field: ".$ufieldsA[$_POST['field']]."
 	header('Location: /account.php?t=3'.$eStr.$fStr); exit();
 
 } elseif ($_POST['action']=='addskill2' && $_POST['t']==4) {
-	$skillset=explode(',',$mysqli->fetch_value("SELECT GROUP_CONCAT(skill_id) FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}"));
+	$sql="SELECT GROUP_CONCAT(E.skill_id) FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} AND added_employee_id=0 AND skill_status=1";
+	$skillset=explode(',',$mysqli->fetch_value($sql));
 
 	if (count($_POST['skill_id'])==0) {
 		$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}";
@@ -106,6 +107,37 @@ Update field: ".$ufieldsA[$_POST['field']]."
 
 		if (count($deleteA)>0) {
 			$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']} AND skill_id IN (".implode(',',$deleteA).")";
+			$result=$mysqli->query($sql);
+		}
+
+		foreach ($addA as $skill_id) {
+			$sql="INSERT INTO employee_skill SET employee_id={$_SESSION['employee_id']}, skill_id=$skill_id";
+			$result=$mysqli->query($sql);
+		}
+	}
+
+//	Personal skills
+	$sql="SELECT GROUP_CONCAT(E.skill_id) FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} AND added_employee_id={$_SESSION['employee_id']} AND skill_status=2";
+	$skillset=explode(',',$mysqli->fetch_value($sql));
+
+	if (count($_POST['my_skill_id'])==0) {
+		$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}";
+		$result=$mysqli->query($sql);
+	} else {
+		$deleteA=$addA=array();
+
+		foreach ($skillset as $skill_id) {
+			if (!in_array($skill_id,$_POST['my_skill_id']) && $skill_id>0) $deleteA[]=$skill_id;
+		}
+		foreach ($_POST['my_skill_id'] as $skill_id) {
+			if (!in_array($skill_id,$skillset) && $skill_id>0) $addA[]=$skill_id;
+		}
+
+		if (count($deleteA)>0) {
+			$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']} AND skill_id IN (".implode(',',$deleteA).")";
+			$result=$mysqli->query($sql);
+
+			$sql="DELETE FROM skill WHERE skill_id IN (".implode(',',$deleteA).")";
 			$result=$mysqli->query($sql);
 		}
 

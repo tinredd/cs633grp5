@@ -125,7 +125,7 @@ $(function () {
 		}
 	});
 
-//	Adding an new skill to an employee as an employee
+//	Adding an new skill to an employee as an HR
 	$(document).on('click','#myskill',function () {
 		if ($('.newskill').length==0) {
 			$newskillform=$('<div></div>');
@@ -211,7 +211,12 @@ $(function () {
 	});
 
 //	Adding an new skill to a job as an HR rep
-	$(document).on('click','#newskill',function () {
+	$(document).on('click','#newskill, #newskillm',function () {
+		var a=0;
+
+		if ($(this).attr('id')=='newskill') a=1;
+		else if ($(this).attr('id')=='newskillm') a=2;
+
 		if ($('.newskill').length==0) {
 			$newskillform=$('<div></div>');
 			$newskillform.css({
@@ -252,21 +257,30 @@ $(function () {
 					$newskill.remove();
 					var skillsA=new Array();
 					if ($skillname.hasClass('error')) $skillname.removeClass('error');
+
 					var url='/listeners/add_job_skill.php';
 
-					$.each($('[name="skill_id[]"]'), function () {
+					var name='';
+					if (a==1) name='skill_id[]';
+					else name='my_skill_id[]';
+
+					$.each($('[name="'+name+'"]'), function () {
 						skillsA.push($(this).val());
 					});
 
 					$.ajax({
 						url: url,
 						data: { 
+							'a': a,
 							'skill_name': $skillname.val(),
 							'checked_skill_id': skillsA.join('|')
 						},
 						method: 'POST',
 						success: function (data) {
-							$('#allskills').html(data);
+							var out_id='';
+							if (a==1) out_id='allskills';
+							else out_id='myallskills';
+							$('#'+out_id).html(data);
 						},
 						error: function () {
 

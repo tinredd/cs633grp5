@@ -86,6 +86,7 @@ function getListing($postA) {
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 
 	if (is_array($skillA) && count($skillA)>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id IN (".implode(',',$skillA)."))";
+	else $andA[]="(S.skill_id IN(SELECT skill_id FROM skill WHERE added_employee_id IN ({$_SESSION['employee_id']},0) AND skill_status>=1) OR S.skill_id IS NULL)";
 
 	if (is_array($postA['salary'])) $andA[]="salary BETWEEN {$postA['salary'][0]} AND {$postA['salary'][1]}";
 	if (is_array($postA['years_experience'])) $andA[]="years_experience BETWEEN {$postA['years_experience'][0]} AND {$postA['years_experience'][1]}";

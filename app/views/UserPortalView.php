@@ -10,19 +10,21 @@
         <li><a href="/account.php?t=4">My skills</a></li>
     </ul>
 </div>
-<?php if ($_SESSION['user_type']==1) { ?>
 <div class="portalpane">
     <div>
         <div class="inline portalheaderimage">&#9733;</div>
         <div class="inline">Employee Management</div>
     </div>
-    <div>Add or modify employee accounts</div>
+    <?php if ($_SESSION['user_type']==2) { ?><div>Search for employees to collaborate</div><?php } ?>
+    <?php if ($_SESSION['user_type']==1) { ?><div>Add or modify employee accounts</div> <?php } ?>
     <ul>
-        <li><a href="/employee.php">Employees list</a></li>
+<?php if ($_SESSION['user_type']==1) { ?>
+        <li><a href="/employee.php">Employees admin list</a></li>
         <li><a href="/employee.php?action=add">Add employee</a></li>
+<?php } ?>
+        <li><a href="/employee.php?action=add">Search all employees</a></li>
     </ul>
 </div>
-<?php } ?>
 <div class="portalpane">
     <div>
         <div class="inline portalheaderimage">&#9873;</div>
@@ -33,7 +35,7 @@
     <ul>
         <?php 
         if ($_SESSION['user_type']==1) {
-            echo '<li><a href="/job.php">Jobs list</a></li>';
+            echo '<li><a href="/job.php">Jobs admin list</a></li>';
             echo '<li><a href="/job.php?action=add">Add job</a></li>';
         }
         ?><li><a href="/jobsearch.php">Search available jobs</a></li>
