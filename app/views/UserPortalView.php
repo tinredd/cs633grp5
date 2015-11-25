@@ -22,7 +22,7 @@
         <li><a href="/employee.php">Employees admin list</a></li>
         <li><a href="/employee.php?action=add">Add employee</a></li>
 <?php } ?>
-        <li><a href="/employee.php?action=add">Search all employees</a></li>
+        <li><a href="/employeesearch.php">Search all employees</a></li>
     </ul>
 </div>
 <div class="portalpane">

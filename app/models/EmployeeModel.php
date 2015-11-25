@@ -29,7 +29,7 @@ function getMySkills() {
 
 function getDates($postA) {
 	if (!isset($postA['start_date'])) {
-		$startDate=mktime(0,0,0,date('n'),date('j')+1,date('Y')-10);
+		$startDate=mktime(0,0,0,date('n'),date('j')+1,date('Y')-30);
 		$endDate=mktime(0,0,0,date('n'),date('j'),date('Y'));
 	} else {
 		$startDate=strtotime($postA['start_date']);
@@ -62,7 +62,7 @@ function getListing($postA,$allFlag=1) {
 
 	$andA=array();
 
-	$sql="SELECT U.*,GROUP_CONCAT(skill_name) AS skillset,GROUP_CONCAT(added_employee_id) AS who,O.office_name,O.contact_name, O.contact_email, 
+	$sql="SELECT U.*,GROUP_CONCAT(skill_name) AS skillset,GROUP_CONCAT(added_employee_id) AS who,O.office_name,O.contact_name, O.contact_email,O.city,O.state, 
 	IF (U.status=1,'Active','Inactive') AS status,
 	DATE_FORMAT(hire_date,'%c/%e/%Y') AS hire_date
 	FROM user U 
@@ -71,8 +71,7 @@ function getListing($postA,$allFlag=1) {
 	LEFT JOIN office O ON O.office_id=U.office_id";
 
 	$andA[]="user_type=2";
-	$andA[]="((hire_date>='".date('Y-m-d',$startDate)."' AND hire_date<='".date('Y-m-d',$endDate)."') OR hire_date IS NULL)";
-	if ($postA['office_id']>0) $andA[]="U.office_id=".$postA['office_id'];
+	if (isset($postA['start_date'])) $andA[]="((hire_date>='".date('Y-m-d',$startDate)."' AND hire_date<='".date('Y-m-d',$endDate)."') OR hire_date IS NULL)";
 
 	$skillA=array();
 	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $skillA[]=$postA['skill_id'];
@@ -80,10 +79,14 @@ function getListing($postA,$allFlag=1) {
 		foreach ($postA['skill_id'] as $skill_id) if ($skill_id>0) $skillA[]=$skill_id;
 	}
 
-	if ($postA['skill_id']>0) $andA[]="S.skill_id= ".$postA['skill_id'];
-	else $andA[]="(S.skill_id IN(SELECT skill_id FROM skill WHERE added_employee_id IN ({$_SESSION['employee_id']},0) AND skill_status>=1) OR S.skill_id IS NULL)";
+	$officeA=array();
+	if (!is_array($postA['office_id']) && $postA['office_id']>0) $officeA[]=$postA['office_id'];
+	if (is_array($postA['office_id']) && count($postA['office_id'])>0) {
+		foreach ($postA['office_id'] as $office_id) if ($office_id>0) $officeA[]=$office_id;
+	}
 
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
+	if (count($officeA)>0) $andA[]="U.office_id IN(".implode(',',$officeA).")";
 
 	if (is_array($skillA) && count($skillA)>0) $andA[]="U.employee_id IN (SELECT employee_id FROM employee_skill A WHERE A.skill_id IN (".implode(',',$skillA)."))";
 	else $andA[]="(S.skill_id IN(SELECT skill_id FROM skill WHERE added_employee_id IN ({$_SESSION['employee_id']},0) AND skill_status>=1) OR S.skill_id IS NULL)";

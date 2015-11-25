@@ -65,6 +65,17 @@
 	</div>
 
 	<div class="form_row">
+		<div>Contact preferences:</div>
+		<div>
+			<input name="hr_contact" value="<?=$_SESSION['hr_contact'];?>" type="hidden" />
+			<input name="employee_contact" value="<?=$_SESSION['employee_contact'];?>" type="hidden" />
+
+			<div class="specialselect<?php if ($_SESSION['hr_contact']==1) echo '-selected';?> standard" id="hr_contact_1">Allow HR to contact me about jobs</div>
+			<div class="specialselect<?php if ($_SESSION['employee_contact']==1) echo '-selected';?> standard" id="employee_contact_1">Allow other employees to contact me</div>
+		</div>
+	</div>
+
+	<div class="form_row">
 		<div>Password:</div>
 		<div>
 			<div><span class="italic inactive">(removed from view)</span></div>

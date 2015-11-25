@@ -20,9 +20,14 @@
 
 <div class="form_row">
     <div>Email:</div>
-    <div>
+    <div><?php if ($emp['hr_contact']==1){ ?>
         <div><a href="mailto:<?=$emp['email_address'];?>"><?=$emp['email_address'];?></a></div>
         <div><a href="mailto:<?=$emp['email_address'];?>" class="button">Contact this employee</a></div>
+        <?php } else { ?>
+            <div>
+                <span class="italic" style="color: #FF0000;">This employee chooses not to be contacted for jobs!</span> 
+            </div>
+        <? } ?>
     </div>
 </div>
 

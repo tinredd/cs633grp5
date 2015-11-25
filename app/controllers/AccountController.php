@@ -2,19 +2,23 @@
 if ($_POST['action']=='update2' && $_POST['t']==1) {
 //	Get errors (no error checking necessary)...
 
+	$hr_contact=($_POST['hr_contact']>0) ? 1 : 0;
+	$employee_contact=($_POST['employee_contact']>0) ? 1 : 0;
 
 //	Compile fields to insert into DB...
 	$fieldsA=array();
 	$fieldsA['office_phone']=addslashes(strip_tags($_POST['office_phone']));
 	$fieldsA['job_title']=addslashes(strip_tags($_POST['job_title']));
 	$fieldsA['notes']=addslashes(strip_tags($_POST['notes']));
+	$fieldsA['hr_contact']=$hr_contact;
+	$fieldsA['employee_contact']=$employee_contact;
 	$fieldsA['last_updated']=date('Y-m-d H:i:s');
 
 //	Update DB record...
 	$updatesA=array();
 	foreach ($fieldsA as $key=>$value) $updatesA[]="$key='".$value."'";
 
-	$sql="UPDATE user SET ".implode(',',$updatesA)." WHERE user_id={$_SESSION['user_id']} LIMIT 1";
+	$sql="UPDATE user SET ".implode(',',$updatesA)." WHERE employee_id={$_SESSION['employee_id']} LIMIT 1";
 	$result=$mysqli->query($sql);
 
 //	Assign SESSION elements...
@@ -26,7 +30,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 } elseif ($_POST['action']=='pw2' && $_POST['t']==2) {
 //	Get errors...
 	$errorsA=array();
-	$match=$mysqli->fetch_value("SELECT COUNT(*) FROM user WHERE password=AES_ENCRYPT('".$_POST['password1']."','".AES_KEY."') AND user_id={$_SESSION['user_id']}");
+	$match=$mysqli->fetch_value("SELECT COUNT(*) FROM user WHERE password=AES_ENCRYPT('".$_POST['password1']."','".AES_KEY."') AND employee_id={$_SESSION['employee_id']}");
 
 	if ($_POST['password1']!=$_POST['password2']) $errorsA[]='password2';
 	if (!validPassword($_POST['password1'])) $errorsA[]='password1';
@@ -44,7 +48,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 		$updatesA=array();
 		foreach ($fieldsA as $key=>$value) $updatesA[]="$key=$value";
 
-		$sql="UPDATE user SET ".implode(',',$updatesA)." WHERE user_id={$_SESSION['user_id']} LIMIT 1";
+		$sql="UPDATE user SET ".implode(',',$updatesA)." WHERE employee_id={$_SESSION['employee_id']} LIMIT 1";
 		$result=$mysqli->query($sql);
 	}
 

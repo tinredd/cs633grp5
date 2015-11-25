@@ -66,6 +66,7 @@ else {
 
         unset($empA[$emp['employee_id']]['password']);
     }
+//    echo '<pre>'.print_r($empA,true).'</pre>';
 
     array_multisort($pointsA,SORT_DESC,$yearsA,SORT_DESC,$empA);
     include($_SERVER['DOCUMENT_ROOT'].'/app/views/JobMatchJobView.php');
