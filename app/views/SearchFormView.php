@@ -44,7 +44,7 @@ $(function() {
 	<div class="form_row">
 		<div>Office location:</div>
 		<div><?php
-		echo '<input name="office_id" value="'.$empl['office_id'].'" type="hidden" />';
+		echo '<input name="office_id[]" value="'.$empl['office_id'].'" type="hidden" />';
 		foreach (getOffices() as $row) {
 			echo '<div class="inline specialselectmult';
 			if ($row['office_id']==$empl['office_id']) echo '-selected';

@@ -25,6 +25,7 @@
 	array_multisort($pointsA,SORT_DESC,$salaryA,SORT_DESC,$yearsA,SORT_ASC,$degreeA,SORT_ASC,$jobA);
 ?>
 <div class="section_title">Matching Jobs <span>(<?=count($jobA);?>)</span></div>
+<?php if (count($jobA)==0) { ?><div class="error">No jobs match your search criteria. Please <a href="/jobsearch.php">search again</a>.</div><?php } ?>
 
 <?php foreach ($jobA as $rank=>$row) { ?>
 
@@ -92,7 +93,7 @@
     </div>
 </div>
 <?php
-	}
     if ($rank<count($empA)-1) echo '
         <div class="form_row" style="margin:10px 25%; width:50%; border-bottom:dotted 1px #AAA;">
         </div>';
+    }

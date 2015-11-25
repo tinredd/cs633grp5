@@ -61,13 +61,24 @@ function getListing($postA) {
 	LEFT JOIN skill S ON S.skill_id=E.skill_id
 	LEFT JOIN office O ON O.office_id=U.office_id";
 
+	$skillA=array();
+	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $skillA[]=$postA['skill_id'];
+	if (is_array($postA['skill_id']) && count($postA['skill_id'])>0) {
+		foreach ($postA['skill_id'] as $skill_id) if ($skill_id>0) $skillA[]=$skill_id;
+	}
+
+	$officeA=array();
+	if (!is_array($postA['office_id']) && $postA['office_id']>0) $officeA[]=$postA['office_id'];
+	if (is_array($postA['office_id']) && count($postA['office_id'])>0) {
+		foreach ($postA['office_id'] as $office_id) if ($office_id>0) $officeA[]=$office_id;
+	}
+
 //	Compose filters...
-	if ($postA['office_id']>0) $andA[]="U.office_id=".$postA['office_id'];
+	if (count($officeA)>0) $andA[]="U.office_id IN(".implode(',',$officeA).")";
 	if (strlen(trim($postA['status']))>0) $andA[]="U.status=".$postA['status'];
 	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 
-	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id=".$postA['skill_id'].")";
-	elseif (is_array($postA['skill_id']) && count($postA['skill_id'])>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id IN (".implode(',',$postA['skill_id'])."))";
+	if (is_array($skillA) && count($skillA)>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id IN (".implode(',',$skillA)."))";
 
 	if (is_array($postA['salary'])) $andA[]="salary BETWEEN {$postA['salary'][0]} AND {$postA['salary'][1]}";
 	if (is_array($postA['years_experience'])) $andA[]="years_experience BETWEEN {$postA['years_experience'][0]} AND {$postA['years_experience'][1]}";
