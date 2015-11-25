@@ -24,7 +24,7 @@
 
 	array_multisort($pointsA,SORT_DESC,$salaryA,SORT_DESC,$yearsA,SORT_ASC,$degreeA,SORT_ASC,$jobA);
 ?>
-<div class="section_title">Matching jobs <span class="bold">(<?=count($jobA);?> result<?php if (count($jobA)!=1) echo 's';?>)</span></div>
+<div class="section_title">Matching Jobs <span>(<?=count($jobA);?>)</span></div>
 
 <?php foreach ($jobA as $rank=>$row) { ?>
 

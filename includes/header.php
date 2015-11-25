@@ -20,7 +20,7 @@ if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 		<link rel="stylesheet" href="/css/form.css" />
 		<link rel="stylesheet" href="/css/nav.css" />
 		<link rel="stylesheet" href="/css/table.css" />
-		<link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css' />
+		<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css' />
 		<link rel="shortcut icon" type="image/x-icon" href="/images/logo/Career_Hub_ico.ico"/>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

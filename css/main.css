@@ -98,6 +98,19 @@ div.tag {
 	color: #888;
 }
 
+.section_title {
+	color: #808080;
+	font-size: 1.5em;
+	margin-bottom: 1.5em;
+	font-family: 'Lato';
+	font-weight: 100;
+}
+
+.section_title>span {
+	font-weight: 300;
+	color: #005F8C;	
+}
+
 /*	Formatting	*/
 .bold { font-weight: bold; }
 .italic { font-style: italic; }

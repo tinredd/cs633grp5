@@ -1,4 +1,4 @@
-<div class="section_title">Matching employees <span class="bold">(<?=count($empA);?> result<?php if (count($empA)!=1) echo 's';?>)</span></div>
+<div class="section_title">Matching Employees <span>(<?=count($empA);?>)</span></div>
 
 <?php foreach ($empA as $rank=>$emp) { ?>
 
