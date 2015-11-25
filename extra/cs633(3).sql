@@ -184,6 +184,23 @@ CREATE TABLE `skill` (
   PRIMARY KEY (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `skill` WRITE;
+/*!40000 ALTER TABLE `skill` DISABLE KEYS */;
+
+INSERT INTO `skill` (`skill_id`, `skill_name`, `skill_status`)
+VALUES
+  (1,'Java',1),
+  (2,'PHP',1),
+  (3,'CSS',1),
+  (4,'HTML 5',1),
+  (5,'JavaScript',1),
+  (6,'UML',1),
+  (7,'jQuery',1);
+
+/*!40000 ALTER TABLE `skill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 
 
 # Dump of table user
