@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-$bcA=array();
 $uri=explode('?',$_SERVER['REQUEST_URI']);
 $url=array_shift($uri);
 
@@ -44,8 +43,8 @@ if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 				if ($url!='/index.php') echo '<div style="display:inline-block;"><a href="/index.php">Home</a></div>';
 
 			//	Adding breadcrumbs
-				if (is_array($bcA)) {
-					foreach ($bcA as $url=>$text) echo '<div style="display:inline-block;">&nbsp;&raquo;&nbsp;<a href="'.$url.'">'.stripslashes($text).'</a></div>';
+				if (isset($bcA) && is_array($bcA)) {
+					foreach ($bcA as $urlStr=>$text) echo '<div style="display:inline-block;">&nbsp;&raquo;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
 				}
 				if (strlen(trim($title))>0) echo '<div style="display:inline-block;" class="bold">&nbsp;&raquo;&nbsp;'.stripslashes($title).'</div>';
 				?>

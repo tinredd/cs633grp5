@@ -182,7 +182,7 @@ div.formholder>div:first-child {
 	width: 35%;
 }
 
-.specialselect-selected,.specialselect:hover,.specialselectmult-selected,.specialselectmulti:hover {
+.specialselect-selected,.specialselect:hover,.specialselectmult-selected,.specialselectmult:hover {
 	color: #76B33C;
 }
 
