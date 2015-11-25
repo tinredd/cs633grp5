@@ -63,7 +63,7 @@ function textCheck(prefix,value,multiple) {
 
 $(function () {
 //	Datepicker
-	$('input[type="date"]').datepicker({
+	$('.datepicker').datepicker({
 		changeMonth: true,
 		changeYear: true,
 		yearRange: "1972:2020"

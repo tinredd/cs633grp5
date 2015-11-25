@@ -76,7 +76,7 @@ function form($employee_id=0,$errorStr='',$action='add') {
 
 	<div class="form_row">
 		<div><span class="required">*</span> Hire date:</div>
-		<div><input name="hire_date" type="date" value="';
+		<div><input name="hire_date" class="datepicker" type="text" value="';
 	if (strtotime($row['hire_date'])) $returnStr.=date('n/d/Y',strtotime($row['hire_date']));
 	$returnStr.='"';
 	if (in_array('hire_date',$errorsA)) $returnStr.=' class="error"';
@@ -170,8 +170,8 @@ function filterform($postA,$dir) {
 		<div>
 			<div class="filterlabel">Hired date</div>
 			<div>
-				<input name="start_date" type="date" style="width:6em;" value="'.date('n/j/Y',$startDate).'" /><span class="filterlabel"> to </span> 
-				<input name="end_date" type="date" style="width:6em;" value="'.date('n/j/Y',$endDate).'" />
+				<input name="start_date" class="datepicker" type="text" style="width:6em;" value="'.date('n/j/Y',$startDate).'" /><span class="filterlabel"> to </span> 
+				<input name="end_date" class="datepicker" type="text" style="width:6em;" value="'.date('n/j/Y',$endDate).'" />
 			</div>
 		</div>
 
