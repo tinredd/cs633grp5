@@ -185,3 +185,16 @@ div.formholder>div:first-child {
 .specialselect-selected, .specialselectmult-selected {
 	color: #76B33C;
 }
+
+/*	Datepicker	*/
+
+#ui-datepicker-div {
+	font-size: 0.8em;
+}
+
+#ui-datepicker-div select {
+	border: 1px solid #888;
+	border-radius: 4px;
+	padding: 2px 0 2px 5px;
+	font-family: Helvetica, Arial, 'sans-serif';
+}
