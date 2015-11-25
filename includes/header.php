@@ -44,9 +44,9 @@ if ($url!='/index.php' && !isset($_SESSION['employee_id'])) {
 
 			//	Adding breadcrumbs
 				if (isset($bcA) && is_array($bcA)) {
-					foreach ($bcA as $urlStr=>$text) echo '<div class="bc">&nbsp;&raquo;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
+					foreach ($bcA as $urlStr=>$text) echo '<div class="bc">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
 				}
-				if (strlen(trim($title))>0) echo '<div class="bc bold">&nbsp;&raquo;&nbsp;<span>'.stripslashes($title).'</span></div>';
+				if (strlen(trim($title))>0) echo '<div class="bc bold">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<span>'.stripslashes($title).'</span></div>';
 		?>
 			</div>
 		</div>

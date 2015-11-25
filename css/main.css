@@ -40,27 +40,36 @@ div.plainerror {
 
 div.error, div.success, div.neutral {
 	padding: 10px 0 10px 50px;
-	width: 100%;
-	margin-bottom: 10px;
-	font-size: 0.9em;
+	margin-bottom: 20px;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	position: relative;
+	left: calc(-1em + 3px);
+	width: calc(100% + 2em - 6px);
 }
 
 div.error {
 	border: 1px solid #800000;
+	border-width: 1px 0;
 	color: #800000;
-	background: #FFCCCC url('/images/icons/cancel.png') no-repeat 1% 50%;
+	background: #FFCCCC url('/images/icons/error.png') no-repeat 1% 50%;
+	background-size: 16px;
 }
 
 div.success {
 	border: 1px solid #006400;
+	border-width: 1px 0;
 	color: #006400;
-	background: #98FB98 url('/images/icons/accept.png') no-repeat 1% 50%;
+	background: #98FB98 url('/images/icons/success.png') no-repeat 1% 50%;
+	background-size: 16px;
 }
 
 div.neutral {
 	border: 1px solid #7b7637;
+	border-width: 1px 0;
 	color: #7b7637;
-	background: #F0E68C url('/images/icons/information.png') no-repeat 1% 50%;
+	background: #F0E68C url('/images/icons/neutral.png') no-repeat 1% 50%;
+	background-size: 16px;
 }
 
 div.filterbox {

@@ -41,7 +41,7 @@ function form($job_id=0,$errorStr='',$action='add') {
 
 	$returnStr='';
 	$errorsA=listErrors($errorStr);
-	if (count($errorsA)>0) $returnStr.='<div class="error">Please correct the errors in the highlighted fields</div>';
+	if (count($errorsA)>0) $returnStr.='<div class="error">Please correct the errors in the highlighted fields!</div>';
 
 	$row=getJob($job_id);
 	$returnStr.=js($row['years_experience'],$row['salary']);

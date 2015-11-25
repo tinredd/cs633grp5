@@ -2,8 +2,10 @@
 $job_id=(isset($_REQUEST['job_id']) && $_REQUEST['job_id']>0)?$_REQUEST['job_id']:0;
 
 function listErrors($str) {
-	$errorsA=unserialize(base64_decode(urlencode($str)));
+	$errorsA=unserialize(base64_decode(urldecode($str)));
 	if (!is_array($errorsA)) $errorsA=array();
+
+	return $errorsA;
 }
 
 function getOffices() {
