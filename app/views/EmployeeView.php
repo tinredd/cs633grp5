@@ -81,19 +81,20 @@ function form($employee_id=0,$errorStr='',$action='add') {
 	$returnStr.='"';
 	if (in_array('hire_date',$errorsA)) $returnStr.=' class="error"';
 	$returnStr.=' /></div>
-	</div>
+	</div>';
 
+	if ($action=='modify') {
+		$returnStr.='
 	<div class="form_row">
 		<div>Skill(s):</div>
 		<div>
 			<div>';
-	if (strlen(trim($row['skillset']))>0) $returnStr.=stripslashes($row['skillset']);
-	else $returnStr.='<span class="italic inactive">(no skills entered)</span>';
+		if (strlen(trim($row['skillset']))>0) $returnStr.=stripslashes($row['skillset']);
+		else $returnStr.='<span class="italic inactive">(no skills entered)</span>';
 	$returnStr.='</div>
 		</div>
 	</div>';
 
-	if ($action=='modify') {
 		$returnStr.='
 	<div class="form_row">
 		<div>Notes:</div>
@@ -162,20 +163,20 @@ function filterform($postA,$dir) {
 
 	<div class="filterbox">
 		<div>
-			<div>Title:</div>
+			<div class="filterlabel">Title</div>
 			<div><input name="job_title" type="text" /></div>
 		</div>
 
 		<div>
-			<div>Hired date:</div>
+			<div class="filterlabel">Hired date</div>
 			<div>
-				<input name="start_date" type="date" style="width:6em;" value="'.date('n/j/Y',$startDate).'" /> to 
+				<input name="start_date" type="date" style="width:6em;" value="'.date('n/j/Y',$startDate).'" /><span class="filterlabel"> to </span> 
 				<input name="end_date" type="date" style="width:6em;" value="'.date('n/j/Y',$endDate).'" />
 			</div>
 		</div>
 
 		<div>
-			<div>Office:</div>
+			<div class="filterlabel">Office</div>
 			<div>
 				<select name="office_id">
 					<option value="0">(all offices)</option>';
@@ -192,7 +193,7 @@ function filterform($postA,$dir) {
 		</div>
 
 		<div>
-			<div>Skill:</div>
+			<div class="filterlabel">Skill</div>
 			<div>
 				<select name="skill_id">
 					<option value="0">(all skills)</option>';
@@ -228,6 +229,9 @@ function tabularize($postA,$dir,$columns=array()) {
 <form name="generic" action="" method="POST">
 	<table>
 		<tr>
+			<th class="label" colspan="'.(count($columns)+1).'">All Employees ('.count(getListing($postA)).')</th>
+		</tr>
+		<tr>
 			<th><a href="javascript:checkAll(\'employee_id[]\')">Select</a></th>';
 
 	foreach ($columns as $field=>$label) {
@@ -245,7 +249,7 @@ function tabularize($postA,$dir,$columns=array()) {
 	if (count(getListing($postA))==0) {
 			$returnStr.='
 		<tr>
-			<td class="inactive italic" colspan=11>(none)</td>
+			<td class="inactive italic" colspan='.(count($columns)+1).'>(none)</td>
 		</tr>';
 	}
 

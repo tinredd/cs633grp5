@@ -185,7 +185,7 @@ $(function() {
 		<div>Salary:</div>
 		<div>
 			<div class="standard">
-				<input type="text" id="salary" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				<input type="text" id="salary" readonly style="border:0; color:#76B33C; font-weight:bold;">
 				<input type="hidden" name="salary[0]" value="25000" />
 				<input type="hidden" name="salary[1]" value="70000" />
 			</div>
@@ -197,7 +197,7 @@ $(function() {
 		<div>Years of experience:</div>
 		<div>
 			<div class="standard">
-				<input type="text" id="years_experience" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+				<input type="text" id="years_experience" readonly style="border:0; color:#76B33C; font-weight:bold;" />
 				<input type="hidden" name="years_experience[0]" value="1" />
 				<input type="hidden" name="years_experience[1]" value="5" />
 			</div>

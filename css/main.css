@@ -65,12 +65,11 @@ div.neutral {
 
 div.filterbox {
 	width: 98%;
-	border: 1px solid #00334d;
-	background-color: #cceeff;
+	border: 1px solid #CDCDCD;
+	background-color: #E8E8E8;
 	padding: 1% 3%;
 	margin-bottom: 20px;
 	font-size: 0.8em;
-	border-radius: 5px;
 }
 
 div.filterbox>div {
@@ -80,6 +79,13 @@ div.filterbox>div {
 
 div.filterbox>div select,div.filterbox>div input[type="text"] {
 	width: 90%;
+}
+
+div.filterbox .filterlabel {
+	font-size: 0.7em;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #777;
 }
 
 div.tag {
@@ -131,8 +137,15 @@ div.tag {
 	color: #005F8C;
 	padding: 10px;
 	border-radius: 7px 7px 0 0;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	font-size: 2.1em;
+	font-family: 'Lato';
+	font-weight: 100;
+}
+
+.portalpane>div:nth-child(2):not(:first-child) {
+	font-size: 0.9em;
+	margin: -18px 0 0 48px;
 	font-family: 'Lato';
 	font-weight: 100;
 }
@@ -148,6 +161,9 @@ div.tag {
 }
 
 .portalpane li {
-	list-style-image: url('/images/icons/arrow_right_alt.png');
+	background: url('/images/icons/arrow_right_alt.png') no-repeat 0 -.25em;
+	list-style: none;
 	font-size: 0.8em;
+	margin-bottom: 0.5em;
+	padding-left: 2em;
 }

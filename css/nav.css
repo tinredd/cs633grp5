@@ -1,6 +1,6 @@
 /*	Breadcrumbs	*/
 div.topbar {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	font-size: 0.8em;
 	width: 98%;
 }
@@ -26,7 +26,6 @@ ul.tabs>li>a {
 	padding: 5px 15px;
 	border: 2px solid #005F8C;
 	border-bottom: 0;
-	border-radius: 5px 5px 0 0;
 	background-color: #FFF;
 	font-size: 0.9em;
 	color: #005F8C;

@@ -79,7 +79,7 @@ function form($job_id=0,$errorStr='',$action='add') {
 		<div>Salary:</div>
 		<div>
 			<div class="standard">
-				<input type="text" id="salary" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+				<input type="text" id="salary" readonly style="border:0; color:#76B33C; font-weight:bold;" />
 				<input type="hidden" name="salary" value="'.$row['salary'].'" />
 			</div>
 			<div class="standard" id="salary_slider"></div>
@@ -105,7 +105,7 @@ function form($job_id=0,$errorStr='',$action='add') {
 		<div><span class="required">*</span> Years experience:</div>
 		<div>
 			<div class="standard">
-				<input type="text" id="years_experience" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+				<input type="text" id="years_experience" readonly style="border:0; color:#76B33C; font-weight:bold;" />
 				<input type="hidden" name="years_experience" value="'.$row['years_experience'].'" />
 			</div>
 			<div class="standard" id="years_experience_slider"></div>
@@ -198,12 +198,12 @@ function filterform($postA,$dir) {
 
 	<div class="filterbox">
 		<div>
-			<div>Title:</div>
+			<div class="filterlabel">Title</div>
 			<div><input name="job_title" type="text" value="'.stripslashes($postA['job_title']).'" /></div>
 		</div>
 
 		<div>
-			<div>Office:</div>
+			<div class="filterlabel">Office</div>
 			<div>
 				<select name="office_id">
 					<option value="0">(all offices)</option>';
@@ -220,7 +220,7 @@ function filterform($postA,$dir) {
 		</div>
 
 		<div>
-			<div>Skill:</div>
+			<div class="filterlabel">Skill</div>
 			<div>
 				<select name="skill_id">
 					<option value="0">(all skills)</option>';
@@ -237,7 +237,7 @@ function filterform($postA,$dir) {
 		</div>
 
 		<div>
-			<div>Status:</div>
+			<div class="filterlabel">Status</div>
 			<div>
 				<select name="status">
 					<option value="-1"';
@@ -273,6 +273,9 @@ function tabularize($postA,$dir,$columns=array()) {
 <form name="generic" action="" method="POST">
 	<table>
 		<tr>
+			<th class="label" colspan="'.(count($columns)+2).'">All Jobs ('.count(getListing($postA)).')</th>
+		</tr>
+		<tr>
 			<th><a href="javascript:checkAll(\'job_id[]\')">Select</a></th>';
 
 	foreach ($columns as $field=>$label) {
@@ -292,7 +295,7 @@ function tabularize($postA,$dir,$columns=array()) {
 	if (count(getListing($postA))==0) {
 			$returnStr.='
 		<tr>
-			<td class="inactive italic" colspan=11>(none)</td>
+			<td class="inactive italic" colspan='.(count($columns)+2).'>(none)</td>
 		</tr>';
 	}
 
