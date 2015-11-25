@@ -46,7 +46,10 @@ function pagination ($postA) {
 		<div class="pagenumber">
 			<a href="javascript:void(0)" class="page">'.$i.'</a>
 		</div>';
-		else $returnStr.='<div class="pagenumber">'.$i.'</div>';
+		else $returnStr.='
+		<div class="pagenumber">
+			<span>'.$i.'</span>
+		</div>';
 	}
 	$returnStr.='</div>';
 
