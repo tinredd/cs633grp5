@@ -280,6 +280,8 @@ function filterform($postA,$dir) {
 
 
 function tabularize($postA,$dir,$columns=array()) {
+	global $degreesA;
+
 	list($startDate,$endDate)=getDates($postA);
 	$returnStr='';
 	$returnStr.=filterform($postA,$dir);
@@ -348,6 +350,7 @@ function tabularize($postA,$dir,$columns=array()) {
 			<td>';
 			if ($key==0) $returnStr.='<a href="?action=modify&amp;job_id='.$row['job_id'].'">';
 			if (strlen(trim($row[$field]))==0) $returnStr.='- -';
+			elseif ($field=='degree') $returnStr.=stripslashes($degreesA[$row[$field]]);
 			else $returnStr.=stripslashes($row[$field]);
 			if ($key==0) $returnStr.='</a>';
 			$returnStr.='</td>';
