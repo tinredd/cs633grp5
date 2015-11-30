@@ -2,14 +2,14 @@
 <div class="form_row title_row">
     <div>&nbsp;</div>
     <div>
-        <div><a href="/job.php?action=modify&amp;job_id=<?=$row['job_id'];?>"><?=stripslashes($row['job_title']);?></a></div>
+        <div><a href="<?php echo APPURL ?>job.php?action=modify&amp;job_id=<?php echo $row['job_id'];?>"><?php echo stripslashes($row['job_title']);?></a></div>
     </div>
 </div>
 
 <div class="form_row">
     <div>Office name:</div>
     <div>
-        <div><?=stripslashes($row['office_name'].' - '.$row['office_id'].' ('.$row['city'].', '.$row['state'].')');?></div>
+        <div><?php echo stripslashes($row['office_name'].' - '.$row['office_id'].' ('.$row['city'].', '.$row['state'].')');?></div>
     </div>
 </div>
 

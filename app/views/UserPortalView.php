@@ -6,8 +6,8 @@
     </div>
     <div>Update your account information</div>
     <ul>
-        <li><a href="/account.php">My account</a></li>
-        <li><a href="/account.php?t=4">My skills</a></li>
+        <li><a href="<?php echo APPURL ?>account.php">My account</a></li>
+        <li><a href="<?php echo APPURL ?>account.php?t=4">My skills</a></li>
     </ul>
 </div>
 <div class="portalpane">
@@ -19,10 +19,10 @@
     <?php if ($_SESSION['user_type']==1) { ?><div>Add or modify employee accounts</div> <?php } ?>
     <ul>
 <?php if ($_SESSION['user_type']==1) { ?>
-        <li><a href="/employee.php">Employees admin list</a></li>
-        <li><a href="/employee.php?action=add">Add employee</a></li>
+        <li><a href="<?php echo APPURL ?>employee.php">Employees admin list</a></li>
+        <li><a href="<?php echo APPURL ?>employee.php?action=add">Add employee</a></li>
 <?php } ?>
-        <li><a href="/employeesearch.php">Search all employees (for collaboration)</a></li>
+        <li><a href="<?php echo APPURL ?>employeesearch.php">Search all employees (for collaboration)</a></li>
     </ul>
 </div>
 <div class="portalpane">
@@ -35,9 +35,9 @@
     <ul>
         <?php 
         if ($_SESSION['user_type']==1) {
-            echo '<li><a href="/job.php">Jobs admin list</a></li>';
-            echo '<li><a href="/job.php?action=add">Add job</a></li>';
+            echo '<li><a href="<?php echo APPURL ?>job.php">Jobs admin list</a></li>';
+            echo '<li><a href="<?php echo APPURL ?>job.php?action=add">Add job</a></li>';
         }
-        ?><li><a href="/jobsearch.php">Search available jobs</a></li>
+        ?><li><a href="<?php echo APPURL ?>jobsearch.php">Search available jobs</a></li>
     </ul>
 </div>

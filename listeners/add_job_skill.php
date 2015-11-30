@@ -1,8 +1,8 @@
 <?php
 //	Add a skill to a job
 session_start();
-include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
-include($_SERVER['DOCUMENT_ROOT'].'/app/models/EmployeeModel.php');
+require_once('includes/bootstrap.php');
+require_once(DOC_ROOT.'/app/models/EmployeeModel.php');
 
 $errorsA=array();
 if ($_POST['a']==1) $sql="SELECT COUNT(*) FROM skill WHERE skill_name LIKE '".addslashes($_POST['skill_name'])."' AND added_employee_id=0";

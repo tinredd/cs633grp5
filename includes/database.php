@@ -1,6 +1,6 @@
 <?php
 class Database extends mysqli {
-	function __construct() {
+	function __construct() {      
 		$this->connect(DB_HOST,DB_USER,DB_PASS,DB_NAME,DB_PORT);
 	}
 

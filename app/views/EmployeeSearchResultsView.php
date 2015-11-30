@@ -26,32 +26,32 @@
 
 	array_multisort($pointsA,SORT_DESC,$empA);
 ?>
-<div class="section_title">Matching Employees <span>(<?=count($empA);?>)</span></div>
-<?php if (count($empA)==0) { ?><div class="error">No employees match your search criteria. Please <a href="/employeesearch.php">search again</a>.</div><?php } ?>
+<div class="section_title">Matching Employees <span>(<?php echo count($empA);?>)</span></div>
+<?php if (count($empA)==0) { ?><div class="error">No employees match your search criteria. Please <a href="<?php echo APPURL ?>employeesearch.php">search again</a>.</div><?php } ?>
 
 <?php foreach ($empA as $rank=>$row) { ?>
 
 <div class="form_row title_row">
     <div>
-        <div><?=($rank+1);?></div>
+        <div><?php echo ($rank+1);?></div>
     </div>
     <div>
-        <div><a href="javascript:void(0)"><?=stripslashes($row['first_name'].' '.$row['last_name']);?></a></div>
+        <div><a href="javascript:void(0)"><?php echo stripslashes($row['first_name'].' '.$row['last_name']);?></a></div>
     </div>
 </div>
 
 <div class="form_row">
     <div>Office name:</div>
     <div>
-        <div><?=stripslashes($row['office_name'].' - '.$row['office_id'].' ('.$row['city'].', '.$row['state'].')');?></div>
+        <div><?php echo stripslashes($row['office_name'].' - '.$row['office_id'].' ('.$row['city'].', '.$row['state'].')');?></div>
     </div>
 </div>
 
 <div class="form_row">
     <div>Email address:</div>
     <div>
-		<div><a href="mailto:<?=$row['email_address'];?>"><?=stripslashes($row['email_address']);?></a></div>
-		<div><a href="mailto:<?=$row['email_address'];?>" class="button">Contact Employee</a></div>
+		<div><a href="mailto:<?php echo $row['email_address'];?>"><?php echo stripslashes($row['email_address']);?></a></div>
+		<div><a href="mailto:<?php echo $row['email_address'];?>" class="button">Contact Employee</a></div>
     </div>
 </div>
 

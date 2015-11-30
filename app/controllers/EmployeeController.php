@@ -45,7 +45,7 @@ if (in_array($action,array('add2','modify2'))) {
 	}
 
 //	Redirect...
-	header('Location: /employee.php?'.$eStr); exit();
+	header('Location: '.APPURL.'employee.php?'.$eStr); exit();
 
 } elseif (in_array($action,array('activate2','inactivate2'))) {
 	if (!is_array($employee_id)) $employeeA=array(0);
@@ -56,5 +56,5 @@ if (in_array($action,array('add2','modify2'))) {
 	$sql="UPDATE user SET status=$status WHERE employee_id IN (".implode(',',$employeeA).")";
 	$result=$mysqli->query($sql);
 
-	header('Location: /employee.php'); exit();
+	header('Location: '.APPURL.'employee.php'); exit();
 }

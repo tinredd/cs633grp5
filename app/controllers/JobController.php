@@ -52,7 +52,7 @@ if (in_array($action,array('add2','modify2'))) {
 	}
 
 //	Redirect...
-	header('Location: /job.php?'.$eStr); exit();
+	header('Location: '.APPURL.'job.php?'.$eStr); exit();
 
 } elseif (in_array($action,array('activate2','inactivate2'))) {
 	if (!is_array($_POST['job_id'])) $jobA=array(0);
@@ -63,6 +63,6 @@ if (in_array($action,array('add2','modify2'))) {
 	$sql="UPDATE job SET status=$status WHERE job_id IN (".implode(',',$jobA).")";
 	$result=$mysqli->query($sql);
 
-	header('Location: /job.php'); exit();
+	header('Location: '.APPURL.'job.php'); exit();
 
 }

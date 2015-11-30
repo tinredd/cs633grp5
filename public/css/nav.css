@@ -83,7 +83,7 @@ div.logout {
 div.logo {
 	width: 98%;
 	height: 125px;
-	background: url('/images/logo/Career_Hub.png') no-repeat;
+	background: url('../images/logo/Career_Hub.png') no-repeat;
 	background-size: auto 125px;
 	margin-bottom: 10px;
 	border-radius: 5px;

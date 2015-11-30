@@ -1,28 +1,28 @@
-<div class="section_title">Matching Employees <span>(<?=count($empA);?>)</span></div>
+<div class="section_title">Matching Employees <span>(<?php echo count($empA);?>)</span></div>
 
 <?php foreach ($empA as $rank=>$emp) { ?>
 
 <div class="form_row title_row">
     <div>
-        <div><?=($rank+1);?></div>
+        <div><?php echo ($rank+1);?></div>
     </div>
     <div>
-        <div><a href="/employee.php?action=modify&amp;employee_id=<?=$emp['employee_id'];?>"><?=stripslashes($emp['first_name'].' '.$emp['last_name']);?></a></div>
+        <div><a href="<?php echo APPURL ?>employee.php?action=modify&amp;employee_id=<?php echo $emp['employee_id'];?>"><?php echo stripslashes($emp['first_name'].' '.$emp['last_name']);?></a></div>
     </div>
 </div>
 
 <div class="form_row">
     <div>Office name:</div>
     <div>
-        <div><?=stripslashes($emp['office_name'].' - '.$emp['office_id'].' ('.$emp['city'].', '.$emp['state'].')');?></div>
+        <div><?php echo stripslashes($emp['office_name'].' - '.$emp['office_id'].' ('.$emp['city'].', '.$emp['state'].')');?></div>
     </div>
 </div>
 
 <div class="form_row">
     <div>Email:</div>
     <div><?php if ($emp['hr_contact']==1){ ?>
-        <div><a href="mailto:<?=$emp['email_address'];?>"><?=$emp['email_address'];?></a></div>
-        <div><a href="mailto:<?=$emp['email_address'];?>" class="button">Contact this employee</a></div>
+        <div><a href="mailto:<?php echo $emp['email_address'];?>"><?php echo $emp['email_address'];?></a></div>
+        <div><a href="mailto:<?php echo $emp['email_address'];?>" class="button">Contact this employee</a></div>
         <?php } else { ?>
             <div>
                 <span class="italic" style="color: #FF0000;">This employee chooses not to be contacted for jobs!</span> 
@@ -34,7 +34,7 @@
 <div class="form_row">
     <div>Hire date:</div>
     <div>
-        <div><?=date('n/j/Y',strtotime($emp['hire_date']));?> (<?=$emp['years'];?> years)</div>
+        <div><?php echo date('n/j/Y',strtotime($emp['hire_date']));?> (<?php echo $emp['years'];?> years)</div>
     </div>
 </div>
 

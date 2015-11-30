@@ -4,7 +4,7 @@
         <div class="inline floatright">Use your internal email address to log in</div>
     </div>
     <div class="standard">
-        <form name="login" action="/process/login.php" method="post">
+        <form name="login" action="<?php echo APPURL ?>login.php" method="post">
             <div class="form_row">
                 <div class="field_label">Email address:</div>
                 <div><input name="email_address" type="text" value="" /></div>

@@ -7,7 +7,7 @@
 	while ($row=$rs_rows->fetch_assoc()) {
 		$skillA[$row['skill_id']]=$row['skill_name'];
 	}
-	include($_SERVER['DOCUMENT_ROOT'].'/app/models/EmployeeModel.php');
+	require_once(DOC_ROOT.'/app/models/EmployeeModel.php');
 
 //	Get personal skills...
 	$sql="SELECT * FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE E.employee_id={$_SESSION['employee_id']} AND S.added_employee_id={$_SESSION['employee_id']} AND skill_status=2";
@@ -19,7 +19,7 @@
 ?>
 <form name="account" action="" method="post">
 	<input name="action" value="addskill2" type="hidden" />
-	<input name="t" value="<?=$tab;?>" type="hidden" />
+	<input name="t" value="<?php echo $tab;?>" type="hidden" />
 
 	<div class="form_row">
 		<div>Skill(s):</div>

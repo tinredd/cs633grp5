@@ -1,6 +1,6 @@
 <form name="account" action="" method="post">
 	<input name="action" value="pw2" type="hidden" />
-	<input name="t" value="<?=$tab;?>" type="hidden" />
+	<input name="t" value="<?php echo $tab;?>" type="hidden" />
 
 	<div class="form_row">
 		<div>Current password:</div>

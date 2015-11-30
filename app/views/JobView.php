@@ -359,7 +359,7 @@ function tabularize($postA,$dir,$columns=array()) {
 		}
 		if ($row['status']=='Active') {
 			$returnStr.='
-			<td class="center"><a href="/jobmatch.php?job_id='.$job_id.'" class="button">Match Employees</a></td>';
+			<td class="center"><a href="<?php echo APPURL ?>jobmatch.php?job_id='.$job_id.'" class="button">Match Employees</a></td>';
 		}
 
 			$returnStr.='

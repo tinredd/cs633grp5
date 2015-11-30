@@ -1,6 +1,6 @@
 <?php
-$includes=false;
-include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
+
+require_once('includes/bootstrap.php');
 
 $action=(isset($_REQUEST['action'])) ? $_REQUEST['action'] : null;
 
@@ -8,10 +8,10 @@ if (strlen(trim($postA['dir']))>0) $dir=$postA['dir'];
 else $dir='ASC';
 
 //	Contains all of the basic functions...
-include($_SERVER['DOCUMENT_ROOT'].'/app/models/Model.php');
-include($_SERVER['DOCUMENT_ROOT'].'/app/models/EmployeeModel.php');
-include($_SERVER['DOCUMENT_ROOT'].'/app/controllers/EmployeeController.php');
-include($_SERVER['DOCUMENT_ROOT'].'/app/views/EmployeeView.php');
+require_once(DOC_ROOT.'/app/models/Model.php');
+require_once(DOC_ROOT.'/app/models/EmployeeModel.php');
+require_once(DOC_ROOT.'/app/controllers/EmployeeController.php');
+require_once(DOC_ROOT.'/app/views/EmployeeView.php');
 
 if ($action=='add') $title="Add an Employee";
 elseif ($action=='modify') $title="Update Employee";
@@ -19,7 +19,7 @@ else $title="List Employees";
 
 if (in_array($action,array('add','modify'))) $bcA['/employee.php']='List Employees';
 
-include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+require_once(DOC_ROOT.'/includes/header.php');
 
 $columns=array(
 'last_name'=>'Last name',
@@ -41,4 +41,4 @@ if (in_array($action,array('add','modify'))) {
 	echo tabularize($_POST,$dir,$columns);
 }
 
-include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
+require_once(DOC_ROOT.'/includes/footer.php');

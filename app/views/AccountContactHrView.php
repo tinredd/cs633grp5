@@ -9,28 +9,28 @@
 
 <form name="account" action="" method="post">
 	<input name="action" value="hr2" type="hidden" />
-	<input name="t" value="<?=$tab;?>" type="hidden" />
-	<input name="f" value="<?=$_REQUEST['f'];?>" type="hidden" />
-	<input name="employee_id" value="<?=$_SESSION['employee_id'];?>" type="hidden" />
+	<input name="t" value="<?php echo $tab;?>" type="hidden" />
+	<input name="f" value="<?php echo $_REQUEST['f'];?>" type="hidden" />
+	<input name="employee_id" value="<?php echo $_SESSION['employee_id'];?>" type="hidden" />
 
 	<div class="form_row">
 		<div>Office contact:</div>
 		<div>
-			<div><?=stripslashes($office['contact_name']);?></div>
+			<div><?php echo stripslashes($office['contact_name']);?></div>
 		</div>
 	</div>
 
 	<div class="form_row">
 		<div>Contact email address:</div>
 		<div>
-			<div><?=stripslashes($office['contact_email']);?></div>
+			<div><?php echo stripslashes($office['contact_email']);?></div>
 		</div>
 	</div>
 
 	<div class="form_row">
 		<div>Contact phone:</div>
 		<div>
-			<div><?=stripslashes($office['contact_phone']);?></div>
+			<div><?php echo stripslashes($office['contact_phone']);?></div>
 		</div>
 	</div>
 	<?php

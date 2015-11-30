@@ -25,7 +25,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 	foreach ($fieldsA as $key=>$value) $_SESSION[$key]=$value;
 
 //	Redirect...
-	header('Location: /account.php?msg=updated'); exit();
+	header('Location: '.APPURL.'account.php?msg=updated'); exit();
 
 } elseif ($_POST['action']=='pw2' && $_POST['t']==2) {
 //	Get errors...
@@ -53,7 +53,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 	}
 
 //	Redirect...
-	header('Location: /account.php?t=2'.$eStr); exit();
+	header('Location: '.APPURL.'account.php?t=2'.$eStr); exit();
 
 //	Contact HR...
 } elseif ($_POST['action']=='hr2' && $_POST['t']==3) {
@@ -90,7 +90,7 @@ Update field: ".$ufieldsA[$_POST['field']]."
 //	Redirect...
 	if (count($errorsA)>0) $eStr='&e='.urlencode(base64_encode(serialize($errorsA)));
 	if (strlen(trim($_REQUEST['f']))>0) $fStr='&f='.$_REQUEST['f'];
-	header('Location: /account.php?t=3'.$eStr.$fStr); exit();
+	header('Location: '.APPURL.'account.php?t=3'.$eStr.$fStr); exit();
 
 } elseif ($_POST['action']=='addskill2' && $_POST['t']==4) {
 	$sql="SELECT GROUP_CONCAT(E.skill_id) FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} AND added_employee_id=0 AND skill_status=1";
@@ -150,5 +150,5 @@ Update field: ".$ufieldsA[$_POST['field']]."
 			$result=$mysqli->query($sql);
 		}
 	}
-	header('Location: /account.php?t=4'.$eStr.$fStr); exit();
+	header('Location: '.APPURL.'account.php?t=4'.$eStr.$fStr); exit();
 }

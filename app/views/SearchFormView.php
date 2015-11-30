@@ -102,6 +102,6 @@ $(function() {
 
 	<div class="form_row" style="margin-top:0.5em;">
 		<div>&nbsp;</div>
-		<div><a href="javascript:void(0)" onClick="$(this).parents('form').eq(0).submit();" class="button"><img src="/images/icons/go_search.png" alt="S"/>Search</a></div>
+		<div><a href="javascript:void(0)" onClick="$(this).parents('form').eq(0).submit();" class="button"><img src="public/images/icons/go_search.png" alt="S"/>Search</a></div>
 	</div>
 </form>

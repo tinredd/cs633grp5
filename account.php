@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-$includes=false;
-include($_SERVER['DOCUMENT_ROOT'].'/includes/includes.php');
+require_once('includes/bootstrap.php');
 
 //	These are the fields to be updated by HR...
 $ufieldsA=array(
@@ -14,7 +13,7 @@ $ufieldsA=array(
 	'hire_date'=>'Hire date'
 );
 
-include($_SERVER['DOCUMENT_ROOT'].'/app/controllers/AccountController.php');
+require_once(DOC_ROOT.'/app/controllers/AccountController.php');
 
 
 if ($_REQUEST['t']>1) $tab=$_REQUEST['t'];
@@ -42,7 +41,7 @@ switch($tab) {
 	break;
 }
 
-include($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+require_once(DOC_ROOT.'/includes/header.php');
 ?>
 <ul class="tabs">
 	<li><a href="?t=1"<?php if ($tab==1) echo ' class="active"';?>>Account Information</a></li>
@@ -58,17 +57,17 @@ if (!is_array($errorsA)) $errorsA=array();
 if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the highlighted fields</div>';
 
 if ($tab==2) {
-	include($_SERVER['DOCUMENT_ROOT'].'/app/views/AccountUpdatePwdView.php');
+	require_once(DOC_ROOT.'/app/views/AccountUpdatePwdView.php');
 
 } elseif ($tab==3) {
-	include($_SERVER['DOCUMENT_ROOT'].'/app/views/AccountContactHrView.php');
+	require_once(DOC_ROOT.'/app/views/AccountContactHrView.php');
 
 } elseif ($tab==4) {
-	include($_SERVER['DOCUMENT_ROOT'].'/app/views/AccountAddSkillView.php');
+	require_once(DOC_ROOT.'/app/views/AccountAddSkillView.php');
 
 } else {
-	include($_SERVER['DOCUMENT_ROOT'].'/app/views/AccountFormView.php');
+	require_once(DOC_ROOT.'/app/views/AccountFormView.php');
 
 }
 
-include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
+require_once(DOC_ROOT.'/includes/footer.php');
