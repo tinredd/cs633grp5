@@ -10,4 +10,3 @@ if ($_SESSION['employee_id']>0) {
 }
 
 include($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
-?>
