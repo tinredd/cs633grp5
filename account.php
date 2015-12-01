@@ -15,8 +15,7 @@ $ufieldsA=array(
 
 require_once(DOC_ROOT.'/app/controllers/AccountController.php');
 
-
-if ($_REQUEST['t']>1) $tab=$_REQUEST['t'];
+if (isset($_REQUEST['t']) && $_REQUEST['t']>1) $tab=$_REQUEST['t'];
 else $tab=1;
 
 switch($tab) {
@@ -44,15 +43,15 @@ switch($tab) {
 require_once(DOC_ROOT.'/includes/header.php');
 ?>
 <ul class="tabs">
-	<li><a href="?t=1"<?php if ($tab==1) echo ' class="active"';?>>Account Information</a></li>
-	<li><a href="?t=2"<?php if ($tab==2) echo ' class="active"';?>>Update Password</a></li>
-	<li><a href="?t=3"<?php if ($tab==3) echo ' class="active"';?>>Contact HR</a></li>
-	<li><a href="?t=4"<?php if ($tab==4) echo ' class="active"';?>>My Skills</a></li>
+	<li><a href="account.php?t=1"<?php if ($tab==1) echo ' class="active"';?>>Account Information</a></li>
+	<li><a href="account.php?t=2"<?php if ($tab==2) echo ' class="active"';?>>Update Password</a></li>
+	<li><a href="account.php?t=3"<?php if ($tab==3) echo ' class="active"';?>>Contact HR</a></li>
+	<li><a href="account.php?t=4"<?php if ($tab==4) echo ' class="active"';?>>My Skills</a></li>
 </ul>
 <?php
 
-$errorsA=unserialize(base64_decode(urlencode($_REQUEST['e'])));
-if (!is_array($errorsA)) $errorsA=array();
+if (isset($_REQUEST['e'])) $errorsA=unserialize(base64_decode(urlencode($_REQUEST['e'])));
+else $errorsA=array();
 
 if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the highlighted fields</div>';
 

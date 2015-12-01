@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    if (!isset($_SESSION)) session_start();
 
     // include our 'include' file once 
     if (!isset($includes) || $includes===true) require_once('includes/bootstrap.php');
@@ -43,13 +43,13 @@
 			<div class="breadcrumbs">
 		<?php 
 			//	Add the "Home" breadcrumb if we are not on the home page...
-				if ($pageName!='index.php') echo '<div class="bc"><a href="<?php echo APPURL ?>index.php">Home</a></div>';
+				if ($pageName!='index.php') echo '<div class="bc"><a href="'.APPURL.'index.php">Home</a></div>';
 
 			//	Adding breadcrumbs
 				if (isset($bcA) && is_array($bcA)) {
 					foreach ($bcA as $urlStr=>$text) echo '<div class="bc">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<a href="'.$urlStr.'">'.stripslashes($text).'</a></div>';
 				}
-				if (strlen(trim($title))>0) echo '<div class="bc bold">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<span>'.stripslashes($title).'</span></div>';
+				if (isset($title) && strlen(trim($title))>0) echo '<div class="bc bold">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<span>'.stripslashes($title).'</span></div>';
 		?>
 			</div>
 		</div>

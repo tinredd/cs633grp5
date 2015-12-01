@@ -156,6 +156,11 @@ function actionform() {
 function filterform($postA,$dir) {
 	list($startDate,$endDate)=getDates($postA);
 
+	if (!isset($postA['sort'])) $postA['sort']='';
+	if (!isset($postA['office_id'])) $postA['office_id']=0;
+	if (!isset($postA['skill_id'])) $postA['skill_id']=0;
+	if (!isset($postA['ppp'])) $postA['ppp']=0;
+
 	$returnStr='';
 	$returnStr.='<form name="filter" action="" method="POST">
 	<input name="sort" type="hidden" value="'.$postA['sort'].'" />
@@ -240,6 +245,11 @@ function tabularize($postA,$dir,$columns=array()) {
 	$returnStr='';
 	$returnStr.=filterform($postA,$dir);
 
+	if (!isset($postA['sort'])) $postA['sort']='';
+	if (!isset($postA['office_id'])) $postA['office_id']=0;
+	if (!isset($postA['skill_id'])) $postA['skill_id']=0;
+	if (!isset($postA['ppp'])) $postA['ppp']=0;
+
 	$pg=(isset($postA['pg']) && $postA['pg']>1) ? $postA['pg'] : 1;
 	$ppp=(isset($postA['ppp']) && $postA['ppp']>0) ? $postA['ppp'] : 0;
 	$start=($pg-1)*$ppp + 1;
@@ -300,7 +310,7 @@ function tabularize($postA,$dir,$columns=array()) {
 		foreach ($columns as $field=>$label) {
 			$returnStr.='
 			<td>';
-			if ($key==0) $returnStr.='<a href="?action=modify&amp;employee_id='.$row['employee_id'].'">';
+			if ($key==0) $returnStr.='<a href="employee.php?action=modify&amp;employee_id='.$row['employee_id'].'">';
 			if (strlen(trim($row[$field]))==0) $returnStr.='- -';
 			else $returnStr.=stripslashes($row[$field]);
 			if ($key==0) $returnStr.='</a>';

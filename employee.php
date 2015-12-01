@@ -4,7 +4,7 @@ require_once('includes/bootstrap.php');
 
 $action=(isset($_REQUEST['action'])) ? $_REQUEST['action'] : null;
 
-if (strlen(trim($postA['dir']))>0) $dir=$postA['dir'];
+if (isset($postA['dir']) && strlen(trim($postA['dir']))>0) $dir=$postA['dir'];
 else $dir='ASC';
 
 //	Contains all of the basic functions...
@@ -36,6 +36,7 @@ $columns=array(
 
 //	The page views of the Employee page
 if (in_array($action,array('add','modify'))) {
+	if (!isset($_REQUEST['e'])) $_REQUEST['e']=null;
 	echo form($employee_id,$_REQUEST['e'],$action);
 } else {
 	echo tabularize($_POST,$dir,$columns);

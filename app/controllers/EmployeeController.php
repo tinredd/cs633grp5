@@ -8,10 +8,10 @@ if (in_array($action,array('add2','modify2'))) {
 	if (!is_numeric($employee_id) && strlen(trim($employee_id))!=7) $errorsA[]='employee_id';
 	if (strlen(trim($_POST['first_name']))==0) $errorsA[]='first_name';
 	if (strlen(trim($_POST['last_name']))==0) $errorsA[]='last_name';
-	if (!($_POST['office_id']>0)) $errorsA[]='office_id';
+	if (isset($_POST['office_id']) && !($_POST['office_id']>0)) $errorsA[]='office_id';
 	if (!strtotime($_POST['hire_date'])) $errorsA[]='hire_date';
 	if (strlen(trim($_POST['email_address']))==0) $errorsA[]='email_address';
-	if (!validEmail($_POST['email_address'])) $errorsA[]='email_address';
+	if (isset($_POST['email_address']) && !validEmail($_POST['email_address'])) $errorsA[]='email_address';
 
 	if (count($errorsA)>0) {
 		$eStr='action='.substr($action,0,-1);

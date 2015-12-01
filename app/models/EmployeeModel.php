@@ -57,6 +57,11 @@ function getListing($postA,$allFlag=1) {
 	$results=array();
 	list($startDate,$endDate)=getDates($postA);
 
+	if (!isset($postA['sort'])) $postA['sort']='last_name';
+	if (!isset($postA['office_id'])) $postA['office_id']=0;
+	if (!isset($postA['skill_id'])) $postA['skill_id']=0;
+	if (!isset($postA['ppp'])) $postA['ppp']=0;
+
 	$ppp=(isset($postA['ppp']) && $postA['ppp']>0) ? $postA['ppp'] : 0;
 	$pg=(isset($postA['pg']) && $postA['pg']>1) ? $postA['pg'] : 1;
 	$start=($pg-1)*$ppp;
@@ -82,12 +87,12 @@ function getListing($postA,$allFlag=1) {
 	}
 
 	$officeA=array();
-	if (!is_array($postA['office_id']) && $postA['office_id']>0) $officeA[]=$postA['office_id'];
-	if (is_array($postA['office_id']) && count($postA['office_id'])>0) {
+	if (isset($postA['office_id']) && !is_array($postA['office_id']) && $postA['office_id']>0) $officeA[]=$postA['office_id'];
+	if (isset($postA['office_id']) && is_array($postA['office_id']) && count($postA['office_id'])>0) {
 		foreach ($postA['office_id'] as $office_id) if ($office_id>0) $officeA[]=$office_id;
 	}
 
-	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
+	if (isset($postA['job_title']) && strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 	if (count($officeA)>0) $andA[]="U.office_id IN(".implode(',',$officeA).")";
 
 	if (is_array($skillA) && count($skillA)>0) $andA[]="U.employee_id IN (SELECT employee_id FROM employee_skill A WHERE A.skill_id IN (".implode(',',$skillA)."))";
@@ -98,7 +103,7 @@ function getListing($postA,$allFlag=1) {
 
 	if (count($andA)>0) $sql.=" WHERE (".implode(' OR ',$whereA).")";
 	$sql.=" GROUP BY U.employee_id";
-	if (strlen(trim($postA['sort']))>0) {
+	if (isset($postA['sort']) && strlen(trim($postA['sort']))>0) {
 		$sql.=" ORDER BY {$postA['sort']} $dir";
 	}
 

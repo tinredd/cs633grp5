@@ -50,6 +50,16 @@ function getListing($postA) {
 	$results=array();
 	list($startDate,$endDate)=getDates($postA);
 
+	if (!isset($postA['sort'])) $postA['sort']='job_title';
+	if (!isset($postA['office_id'])) $postA['office_id']=0;
+	if (!isset($postA['skill_id'])) $postA['skill_id']=0;
+	if (!isset($postA['ppp'])) $postA['ppp']=0;
+	if (!isset($postA['job_title'])) $postA['job_title']='';
+	if (!isset($postA['status'])) $postA['status']=null;
+	if (!isset($postA['degree'])) $postA['degree']='';
+	if (!isset($postA['salary'])) $postA['salary']='';
+	if (!isset($postA['years_experience'])) $postA['years_experience']='';
+
 	$ppp=(isset($postA['ppp'])) ? $postA['ppp'] : 0;
 	$pg=(isset($postA['pg'])) ? $postA['pg'] : 1;
 
@@ -84,8 +94,8 @@ function getListing($postA) {
 //	Compose filters...
 	if (count($officeA)>0) $andA[]="U.office_id IN(".implode(',',$officeA).")";
 	if (count($degreeA)>0) $andA[]="U.degree IN(".implode(',',$degreeA).")";
-	if (strlen(trim($postA['status']))>0) $andA[]="U.status=".$postA['status'];
-	if (strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
+	if (isset($postA['status']) && $postA['status']>-1) $andA[]="U.status=".$postA['status'];
+	if (isset($postA['job_title']) && strlen(trim($postA['job_title']))>0) $andA[]="job_title LIKE '".$postA['job_title']."%'";
 
 	if (is_array($skillA) && count($skillA)>0) $andA[]="U.job_id IN (SELECT job_id FROM job_skill A WHERE A.skill_id IN (".implode(',',$skillA)."))";
 	else $andA[]="(S.skill_id IN(SELECT skill_id FROM skill WHERE added_employee_id IN ({$_SESSION['employee_id']},0) AND skill_status>=1) OR S.skill_id IS NULL)";

@@ -35,8 +35,8 @@
     <ul>
         <?php 
         if ($_SESSION['user_type']==1) {
-            echo '<li><a href="<?php echo APPURL ?>job.php">Jobs admin list</a></li>';
-            echo '<li><a href="<?php echo APPURL ?>job.php?action=add">Add job</a></li>';
+            echo '<li><a href="'.APPURL.'job.php">Jobs admin list</a></li>';
+            echo '<li><a href="'.APPURL.'job.php?action=add">Add job</a></li>';
         }
         ?><li><a href="<?php echo APPURL ?>jobsearch.php">Search available jobs</a></li>
     </ul>

@@ -1,7 +1,8 @@
 <?php
 //	Contact HR
-	$field=base64_decode(urldecode($_REQUEST['f']));
-	if (!in_array($field,array_keys($ufieldsA))) $field='';
+	$field='';
+	if (isset($_REQUEST['f'])) $field=base64_decode(urldecode($_REQUEST['f']));
+	if (!array_key_exists($field,$ufieldsA)) $field='';
 
 	if (count($errorsA)>0) echo '<div class="error">Please correct the errors in the highlighted fields</div>';
 	$office=$mysqli->fetch_row("SELECT * FROM office WHERE office_id={$_SESSION['office_id']}");

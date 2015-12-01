@@ -191,6 +191,13 @@ function actionform() {
 function filterform($postA,$dir) {
 	list($startDate,$endDate)=getDates($postA);
 
+	if (!isset($postA['sort'])) $postA['sort']='';
+	if (!isset($postA['office_id'])) $postA['office_id']=0;
+	if (!isset($postA['skill_id'])) $postA['skill_id']=0;
+	if (!isset($postA['ppp'])) $postA['ppp']=0;
+	if (!isset($postA['job_title'])) $postA['job_title']='';
+	if (!isset($postA['status'])) $postA['status']=1;
+
 	$returnStr='';
 	$returnStr.='<form name="filter" action="" method="POST">
 	<input name="sort" type="hidden" value="'.$postA['sort'].'" />
@@ -281,6 +288,7 @@ function filterform($postA,$dir) {
 
 function tabularize($postA,$dir,$columns=array()) {
 	global $degreesA;
+	if (!isset($postA['pg'])) $postA['pg']='';
 
 	list($startDate,$endDate)=getDates($postA);
 	$returnStr='';
@@ -348,7 +356,7 @@ function tabularize($postA,$dir,$columns=array()) {
 		foreach ($columns as $field=>$label) {
 			$returnStr.='
 			<td>';
-			if ($key==0) $returnStr.='<a href="?action=modify&amp;job_id='.$row['job_id'].'">';
+			if ($key==0) $returnStr.='<a href="job.php?action=modify&amp;job_id='.$row['job_id'].'">';
 			if (strlen(trim($row[$field]))==0) $returnStr.='- -';
 			elseif ($field=='degree') $returnStr.=stripslashes($degreesA[$row[$field]]);
 			else $returnStr.=stripslashes($row[$field]);
@@ -359,7 +367,7 @@ function tabularize($postA,$dir,$columns=array()) {
 		}
 		if ($row['status']=='Active') {
 			$returnStr.='
-			<td class="center"><a href="<?php echo APPURL ?>jobmatch.php?job_id='.$job_id.'" class="button">Match Employees</a></td>';
+			<td class="center"><a href="'.APPURL.'jobmatch.php?job_id='.$job_id.'" class="button">Match Employees</a></td>';
 		}
 
 			$returnStr.='

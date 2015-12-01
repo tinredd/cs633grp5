@@ -37,6 +37,14 @@ switch(CURRENT_SYSTEM) {
     define('DB_PASS', 'hellocar');    
     define('URLIGNORE','cs633grp5');    
     break;
+    
+  case 'TINA_LOCAL':
+    define('APPURL', 'http://dev.cs633.com/');
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'cs633'); 
+    define('DB_PASS', 'cs633grp5');    
+    define('URLIGNORE','');    
+    break;
 }
 
 // define the file path for this project  

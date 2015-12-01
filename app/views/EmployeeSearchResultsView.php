@@ -6,17 +6,18 @@
         if ($emp['employee_id']==$_SESSION['employee_id']) continue;
         if ($emp['employee_contact']==0) continue;
 
-		$points=0;
+		$points=0; $commonskillset=array();
 		if ($emp['office_id']==$empl['office_id']) $points++;
-		$commonskillset=array_intersect(explode(',',$empl['skillids']),explode(',',$emp['skillids']));
+		if (isset($emp['skillids'])) $commonskillset=array_intersect(explode(',',$empl['skillids']),explode(',',$emp['skillids']));
 		$points+=count($commonskillset);
 
-		if ((count(explode(',',$emp['skillids']))==0 || count($commonskillset)>0) && $emp['office_id']==$empl['office_id']) $points++;
+		if (isset($emp['skillids']) && (count(explode(',',$emp['skillids']))==0 || count($commonskillset)>0) && $emp['office_id']==$empl['office_id']) $points++;
 
 		$pointsA[]=$points;
 
 		$empA[$emp['employee_id']]=$emp;
-		$empA[$emp['employee_id']]['skillids']=explode(',',$emp['skillids']);
+		if (isset($emp['skillids'])) $empA[$emp['employee_id']]['skillids']=explode(',',$emp['skillids']);
+        else $empA[$emp['employee_id']]['skillids']=array();
         $tmpA=array();
         foreach (explode(',',$emp['skillset']) as $tmp) if (strlen(trim($tmp))>0) $tmpA[]=$tmp;
         $empA[$emp['employee_id']]['skillset']=$tmpA;

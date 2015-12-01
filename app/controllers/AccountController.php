@@ -1,9 +1,15 @@
 <?php
-if ($_POST['action']=='update2' && $_POST['t']==1) {
+if (isset($_POST['action'])) $action=$_POST['action'];
+else $action=null;
+
+if (isset($_POST['t'])) $tab=$_POST['t'];
+else $tab=0;
+
+if ($action=='update2' && $tab==1) {
 //	Get errors (no error checking necessary)...
 
-	$hr_contact=($_POST['hr_contact']>0) ? 1 : 0;
-	$employee_contact=($_POST['employee_contact']>0) ? 1 : 0;
+	$hr_contact=(isset($_POST['hr_contact']) && $_POST['hr_contact']>0) ? 1 : 0;
+	$employee_contact=(isset($_POST['employee_contact']) && $_POST['employee_contact']>0) ? 1 : 0;
 
 //	Compile fields to insert into DB...
 	$fieldsA=array();
@@ -27,7 +33,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 //	Redirect...
 	header('Location: '.APPURL.'account.php?msg=updated'); exit();
 
-} elseif ($_POST['action']=='pw2' && $_POST['t']==2) {
+} elseif ($action=='pw2' && $tab==2) {
 //	Get errors...
 	$errorsA=array();
 	$match=$mysqli->fetch_value("SELECT COUNT(*) FROM user WHERE password=AES_ENCRYPT('".$_POST['password1']."','".AES_KEY."') AND employee_id={$_SESSION['employee_id']}");
@@ -56,7 +62,7 @@ if ($_POST['action']=='update2' && $_POST['t']==1) {
 	header('Location: '.APPURL.'account.php?t=2'.$eStr); exit();
 
 //	Contact HR...
-} elseif ($_POST['action']=='hr2' && $_POST['t']==3) {
+} elseif ($action=='hr2' && $tab==3) {
 //	Get errors...
 	$errorsA=array();
 	$to=$mysqli->fetch_value("SELECT contact_email FROM office WHERE office_id={$_SESSION['office_id']}");
@@ -92,7 +98,7 @@ Update field: ".$ufieldsA[$_POST['field']]."
 	if (strlen(trim($_REQUEST['f']))>0) $fStr='&f='.$_REQUEST['f'];
 	header('Location: '.APPURL.'account.php?t=3'.$eStr.$fStr); exit();
 
-} elseif ($_POST['action']=='addskill2' && $_POST['t']==4) {
+} elseif ($action=='addskill2' && $tab==4) {
 	$sql="SELECT GROUP_CONCAT(E.skill_id) FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} AND added_employee_id=0 AND skill_status=1";
 	$skillset=explode(',',$mysqli->fetch_value($sql));
 
