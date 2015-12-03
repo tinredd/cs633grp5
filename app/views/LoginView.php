@@ -1,5 +1,5 @@
 <?php
-if ($_REQUEST['e']==1) echo '<div class="error">Email address and/or password is incorrect! Please contact your HR representative for login credentials.</div>';
+if (isset($_REQUEST['e']) && $_REQUEST['e']==1) echo '<div class="error">Email address and/or password is incorrect! Please contact your HR representative for login credentials.</div>';
 ?>
 
 <div class="standard" style="font-size:1em;">
