@@ -16,7 +16,7 @@
 <html>
 	<head>
         <base href="<?php echo APPURL ?>" />    
-		<title><?php echo TITLE; if (strlen(trim($title))>0) echo " :: $title";?></title>
+		<title><?php echo TITLE; if (isset($title) && strlen(trim($title))>0) echo " :: $title";?></title>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="public/css/main.css" />
 		<link rel="stylesheet" href="public/css/form.css" />
