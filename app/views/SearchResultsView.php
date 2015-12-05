@@ -56,7 +56,7 @@
 <div class="form_row">
     <div>Salary:</div>
     <div>
-        <div><?php;
+        <div><?php
         if (strlen($row['salary'])>0) echo $row['salary'];
         else echo '<span class="inactive italic">(none defined)</span>';
         ?></div>

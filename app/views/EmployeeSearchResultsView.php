@@ -2,6 +2,7 @@
 	$empsA=getListing($_POST);
 
 	$empA=array();
+    $pointsA=array();
 	foreach ($empsA as $emp) {
         if ($emp['employee_id']==$_SESSION['employee_id']) continue;
         if ($emp['employee_contact']==0) continue;

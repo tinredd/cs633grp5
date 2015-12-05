@@ -39,4 +39,14 @@ if (count($errorsA)==0) {
 		echo '">'.stripslashes($skill['skill_name']).'</div>';
 	}
 }
-else echo '<div class="plainerror">'.implode('<br/>',$errorsA).'</div>';
+else {
+	if ($_POST['a']==1) $skA=getSkills();
+	elseif ($_POST['a']==2) $skA=getMySkills();
+
+	foreach ($skA as $skill) {
+		echo '<div class="inline specialselectmult';
+		if (in_array($skill['skill_id'],$checkedA))  echo '-selected';
+		echo '">'.stripslashes($skill['skill_name']).'</div>';
+	}
+	echo '<div class="plainerror" style="font-size: 0.8em;">'.implode('<br/>',$errorsA).'</div>';
+}

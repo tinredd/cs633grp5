@@ -102,17 +102,20 @@ Update field: ".$ufieldsA[$_POST['field']]."
 	$sql="SELECT GROUP_CONCAT(E.skill_id) FROM employee_skill E LEFT JOIN skill S ON S.skill_id=E.skill_id WHERE employee_id={$_SESSION['employee_id']} AND added_employee_id=0 AND skill_status=1";
 	$skillset=explode(',',$mysqli->fetch_value($sql));
 
-	if (count($_POST['skill_id'])==0) {
+	if ((isset($_POST['skill_id']) && count($_POST['skill_id'])==0) || !isset($_POST['skill_id'])) {
 		$sql="DELETE FROM employee_skill WHERE employee_id={$_SESSION['employee_id']}";
 		$result=$mysqli->query($sql);
 	} else {
 		$deleteA=$addA=array();
 
 		foreach ($skillset as $skill_id) {
-			if (!in_array($skill_id,$_POST['skill_id']) && $skill_id>0) $deleteA[]=$skill_id;
+			if (isset($_POST['skill_id']) && !in_array($skill_id,$_POST['skill_id']) && $skill_id>0) $deleteA[]=$skill_id;
 		}
-		foreach ($_POST['skill_id'] as $skill_id) {
-			if (!in_array($skill_id,$skillset) && $skill_id>0) $addA[]=$skill_id;
+
+		if (isset($_POST['skill_id'])) {
+			foreach ($_POST['skill_id'] as $skill_id) {
+				if (!in_array($skill_id,$skillset) && $skill_id>0) $addA[]=$skill_id;
+			}
 		}
 
 		if (count($deleteA)>0) {
