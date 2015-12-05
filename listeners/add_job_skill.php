@@ -1,7 +1,7 @@
 <?php
 //	Add a skill to a job
 session_start();
-require_once('includes/bootstrap.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/bootstrap.php');
 require_once(DOC_ROOT.'/app/models/EmployeeModel.php');
 
 $errorsA=array();

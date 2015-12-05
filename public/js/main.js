@@ -282,8 +282,8 @@ $(function () {
 							else out_id='myallskills';
 							$('#'+out_id).html(data);
 						},
-						error: function () {
-
+						error: function (jqXHR, textStatus, errorThrown) {
+						//	alert(jqXHR.status);
 						}
 					});
 				}

@@ -1,6 +1,6 @@
 <?php
 //	Add a skill to an employee...
-require_once('includes/bootstrap.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/bootstrap.php');
 
 $rowA=array();
 $entered=$_REQUEST['entered'];
