@@ -78,7 +78,7 @@ function getListing($postA,$allFlag=1) {
 	LEFT JOIN office O ON O.office_id=U.office_id";
 
 	$andA[]="user_type=2";
-	if (isset($postA['start_date'])) $andA[]="((hire_date>='".date('Y-m-d',$startDate)."' AND hire_date<='".date('Y-m-d',$endDate)."') OR hire_date IS NULL)";
+	if ($startDate>0 && $endDate>0) $andA[]="((hire_date>='".date('Y-m-d',$startDate)."' AND hire_date<='".date('Y-m-d',$endDate)."') OR hire_date IS NULL)";
 
 	$skillA=array();
 	if (!is_array($postA['skill_id']) && $postA['skill_id']>0) $skillA[]=$postA['skill_id'];
