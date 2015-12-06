@@ -1,5 +1,6 @@
 <?php
 	$jobsA=getListing($_POST);
+    $pointsA=$salaryA=$yearsA=$degreeA=array();
 
 	$jobA=array();
 	foreach ($jobsA as $job) {
@@ -77,7 +78,7 @@
     <div>Education required:</div>
     <div>
         <div><?php
-        if (strlen(trim($row['degree']))>0) echo stripslashes($row['degree']);
+        if (strlen(trim($row['degree']))>0) echo stripslashes($degreesA[$row['degree']]);
         else echo '<span class="inactive italic">(none defined)</span>';
         ?></div>
     </div>
