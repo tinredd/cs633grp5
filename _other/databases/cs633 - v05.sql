@@ -258,20 +258,22 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`employee_id`, `office_id`, `first_name`, `last_name`, `email_address`, `password`, `office_phone`, `user_type`, `job_title`, `hire_date`, `notes`, `status`, `hr_contact`, `employee_contact`, `last_updated`) VALUES
-(3242342, 1, 'Donald', 'Henderson', 'donald.henderson@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, '', '2015-11-16', NULL, 1, 1, 1, '2015-11-24 18:12:14'),
-(3244543, 2, 'Michael', 'Boccafola', 'michael.boccafola@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, 'Senior Application Developer', '2012-11-01', NULL, 1, 1, 1, '2015-11-24 18:12:21'),
-(3281209, 4, 'DO NOT', 'MATCH', 'notest@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, '', '1972-01-01', NULL, 1, 1, 1, '2015-12-05 12:38:49'),
-(3435332, 1, 'Tracy', 'Smith', 'tracy.smith@company.com', 'YX·jõá\0¥)…!Þ“', '617-415-2222 x432', 1, 'HR Partner', '1972-04-05', 'My notes.', 1, 0, 0, '2015-12-05 19:57:35'),
-(4542132, 2, 'Alex', 'Elentukh', 'alex.elentukh@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, 'Technology Specialist', '2005-06-15', NULL, 1, 1, 1, '2015-11-20 19:38:36'),
-(4546476, 2, 'Gary', 'Johnson', 'gary.johnson@company.com', 'YX·jõá\0¥)…!Þ“', '', 1, '', NULL, '', 1, 1, 1, '2015-12-05 13:14:37'),
-(5943023, 1, 'Test', 'Test', 'test.test@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, '', '2015-08-01', NULL, 1, 1, 1, '2015-12-05 19:52:18'),
-(6465443, 3, 'Linda', 'Hernandez', 'linda.hernandez@company.com', 'YX·jõá\0¥)…!Þ“', NULL, 1, NULL, NULL, NULL, 1, 1, 1, NULL),
-(6543512, 1, 'Tina', 'Redd', 'tina.redd@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, 'Database Admin', '2009-02-09', NULL, 1, 1, 1, '2015-11-20 19:37:37'),
-(6730912, 3, 'Hello', 'Team', 'hello.team@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, '', '2015-05-01', NULL, 0, 1, 1, '2015-12-06 02:12:58'),
-(8435443, 2, 'Lawrence', 'Johnson', 'larry.johnson@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, 'Application Developer', '1996-08-21', NULL, 1, 1, 1, '2015-11-20 19:38:54'),
-(8436743, 4, 'Mark', 'Faetanini', 'mark.faetanini@company.com', 'YX·jõá\0¥)…!Þ“', '', 2, 'Project Manager', '2014-01-07', NULL, 1, 1, 1, '2015-11-22 09:40:58'),
-(8686232, 4, 'Michael', 'Spaulding', 'michael.spaulding@company.com', 'YX·jõá\0¥)…!Þ“', NULL, 1, NULL, NULL, NULL, 1, 1, 1, NULL);
+(3242342, 1, 'Donald', 'Henderson', 'donald.henderson@company.com', '', '', 2, '', '2015-11-16', NULL, 1, 1, 1, '2015-11-24 18:12:14'),
+(3244543, 2, 'Michael', 'Boccafola', 'michael.boccafola@company.com', '', '', 2, 'Senior Application Developer', '2012-11-01', NULL, 1, 1, 1, '2015-11-24 18:12:21'),
+(3281209, 4, 'DO NOT', 'MATCH', 'notest@company.com', '', '', 2, '', '1972-01-01', NULL, 1, 1, 1, '2015-12-05 12:38:49'),
+(3435332, 1, 'Tracy', 'Smith', 'tracy.smith@company.com', '', '617-415-2222 x432', 1, 'HR Partner', '1972-04-05', 'My notes.', 1, 0, 0, '2015-12-05 19:57:35'),
+(4542132, 2, 'Alex', 'Elentukh', 'alex.elentukh@company.com', '', '', 2, 'Technology Specialist', '2005-06-15', NULL, 1, 1, 1, '2015-11-20 19:38:36'),
+(4546476, 2, 'Gary', 'Johnson', 'gary.johnson@company.com', '', '', 1, '', NULL, '', 1, 1, 1, '2015-12-05 13:14:37'),
+(5943023, 1, 'Test', 'Test', 'test.test@company.com', '', '', 2, '', '2015-08-01', NULL, 1, 1, 1, '2015-12-05 19:52:18'),
+(6465443, 3, 'Linda', 'Hernandez', 'linda.hernandez@company.com', '', NULL, 1, NULL, NULL, NULL, 1, 1, 1, NULL),
+(6543512, 1, 'Tina', 'Redd', 'tina.redd@company.com', '', '', 2, 'Database Admin', '2009-02-09', NULL, 1, 1, 1, '2015-11-20 19:37:37'),
+(6730912, 3, 'Hello', 'Team', 'hello.team@company.com', '', '', 2, '', '2015-05-01', NULL, 0, 1, 1, '2015-12-06 02:12:58'),
+(8435443, 2, 'Lawrence', 'Johnson', 'larry.johnson@company.com', '', '', 2, 'Application Developer', '1996-08-21', NULL, 1, 1, 1, '2015-11-20 19:38:54'),
+(8436743, 4, 'Mark', 'Faetanini', 'mark.faetanini@company.com', '', '', 2, 'Project Manager', '2014-01-07', NULL, 1, 1, 1, '2015-11-22 09:40:58'),
+(8686232, 4, 'Michael', 'Spaulding', 'michael.spaulding@company.com', '', NULL, 1, NULL, NULL, NULL, 1, 1, 1, NULL);
 
+
+UPDATE user SET password=AES_ENCRYPT('cs633grp5','4034ewewfejiooi3');
 --
 -- Constraints for dumped tables
 --
